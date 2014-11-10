@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Socket.IO chat</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+  </head>
+  <body>
+    Ejemplos:
+    <ul>
+      <li>Image: http://www.online-image-editor.com/styles/2013/images/example_image.png</li>
+      <li>Dibujo: https://docs.google.com/drawings/d/19i0f_Eo8UJ0x62Nrs15JWlzOVewMsHvjj9aeOSuCKvc/edit?usp=sharing</li>
+      <li>Doc: https://docs.google.com/document/d/1CBTXdfTAdxKb1LfPdwHQyY7MAEqtw51NfB8UEfnTy44/edit?usp=sharing</li>
+    </ul>
+    <div id="magicbox">
+      <div id="magicboxheader">
+        <h1>Magic box</h1>
+      </div>
+      <div id="magicboxobjectwrapper">
+        <object id="magicboxobject"></object>
+      </div>
+      <div id="magicboxhistoric">
+        <ul id="messages">
+        </ul>
+      </div>
+      <div id="magicboxform">
+          <input id="sharedlink" required="required" autocomplete="off" onkeydown="if (event.keyCode == 13) document.getElementById('sharelink').click()"/>
+          <button id="sharelink" type="button">Send</button>
+      </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+      var socket = io();
+      $('#sharelink').click(function(){
+        if($('#sharedlink').val()){
+          socket.emit('linkshared', $('#sharedlink').val());
+          $('#sharedlink').val('');          
+        }
+      });
+      socket.on('linkshared', function(msg){
+        var magicbox = $('#magicboxobject').clone();
+        magicbox.attr('data',msg);
+        $("#magicboxobjectwrapper").empty();
+        $("#magicboxobjectwrapper").append(magicbox);
+        var currentDate = new Date();
+        $('#messages').prepend('<li>' + currentDate.getDate() + '/' + currentDate.getMonth() + '/' + currentDate.getFullYear() + ': <a target="_blank" href="' + msg + '">Link</a></li>');
+      });
+    </script>
+  </body>
+</html>
