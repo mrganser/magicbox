@@ -31,19 +31,27 @@
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
       var socket = io();
-      $('#sharelink').click(function(){
-        if($('#sharedlink').val()){
-          socket.emit('linkshared', $('#sharedlink').val());
-          $('#sharedlink').val('');          
-        }
+      $(function(){
+          $('#sharelink').click(function(){
+            if($('#sharedlink').val()){
+              socket.emit('linkshared', $('#sharedlink').val());
+              $('#sharedlink').val('');          
+            }
+          });
+          socket.on('linkshared', function(msg){
+            var magicbox = $('#magicboxobject').clone();
+            magicbox.attr('data',msg);
+            $("#magicboxobjectwrapper").empty();
+            $("#magicboxobjectwrapper").append(magicbox);
+            var currentDate = new Date();
+            $('#messages').prepend('<li>' + currentDate.getDate() + '/' + currentDate.getMonth() + '/' + currentDate.getFullYear() + ': <a target="_blank" href="' + msg + '">Link</a></li>');
+          });
+          socket.on('loadchannel', function(msg){
+              console.dir(msg);
+          });
       });
-      socket.on('linkshared', function(msg){
-        var magicbox = $('#magicboxobject').clone();
-        magicbox.attr('data',msg);
-        $("#magicboxobjectwrapper").empty();
-        $("#magicboxobjectwrapper").append(magicbox);
-        var currentDate = new Date();
-        $('#messages').prepend('<li>' + currentDate.getDate() + '/' + currentDate.getMonth() + '/' + currentDate.getFullYear() + ': <a target="_blank" href="' + msg + '">Link</a></li>');
+      $( "#magicboxhistoric" ).ready(function() {
+          socket.emit('loadchannel', 1);
       });
     </script>
   </body>

@@ -8,6 +8,8 @@ var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 var magicbox = require('./routes/magicbox');
 
+var sharedLinksController = require('./controllers/SharedLinksController');
+
 var app = express();
 
 // IO ----------------
@@ -20,6 +22,18 @@ server.listen(5101);
 io.on('connection', function (socket) {
   socket.on('linkshared', function(msg){
     io.emit('linkshared', msg);
+  });
+
+  socket.on('loadchannel', function(msg) {
+    sharedLinksController.findAll(function(err, results){
+        if (err){
+            console.log(err);
+        } else {
+            if (results) {
+                io.emit('loadchannel', null);
+            }
+        }
+    });
   });
 });
 
