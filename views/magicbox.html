@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
   <head>
-    <title>Socket.IO chat</title>
+    <title>Magic Box</title>
     <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
   </head>
   <body>
@@ -13,7 +13,7 @@
     </ul>
     <div id="magicbox">
       <div id="magicboxheader">
-        <h1>Magic box</h1>
+        <h1>Magic box - Channel 1</h1>
       </div>
       <div id="magicboxobjectwrapper">
         <object id="magicboxobject"></object>
@@ -28,31 +28,7 @@
       </div>
     </div>
     <script src="/socket.io/socket.io.js"></script>
-    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-    <script>
-      var socket = io();
-      $(function(){
-          $('#sharelink').click(function(){
-            if($('#sharedlink').val()){
-              socket.emit('linkshared', $('#sharedlink').val());
-              $('#sharedlink').val('');          
-            }
-          });
-          socket.on('linkshared', function(msg){
-            var magicbox = $('#magicboxobject').clone();
-            magicbox.attr('data',msg);
-            $("#magicboxobjectwrapper").empty();
-            $("#magicboxobjectwrapper").append(magicbox);
-            var currentDate = new Date();
-            $('#messages').prepend('<li>' + currentDate.getDate() + '/' + currentDate.getMonth() + '/' + currentDate.getFullYear() + ': <a target="_blank" href="' + msg + '">Link</a></li>');
-          });
-          socket.on('loadchannel', function(msg){
-              console.dir(msg);
-          });
-      });
-      $( "#magicboxhistoric" ).ready(function() {
-          socket.emit('loadchannel', 1);
-      });
-    </script>
+    <script src="/thirdparty/jquery-1.11.1.js"></script>
+    <script src="/javascripts/controllers/magicboxController.js"></script>
   </body>
 </html>

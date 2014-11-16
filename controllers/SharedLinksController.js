@@ -1,21 +1,31 @@
-var MongoClient = require('mongodb').MongoClient;
-
 var SharedLinksController = function(){};
 
-SharedLinksController.prototype.findAll = function(callback) {
-  MongoClient.connect('mongodb://localhost:27017/magicbox', function(err, db){
-    if(!err) {
-      var collection = db.collection('sharedlinks');
+SharedLinksController.prototype.find = function(db, currentChannel, callback) {
+  var collection = db.collection('sharedlinks');
 
-      collection.find({"canal":1}, function(err, result) {
-        if (err) {
-          callback(err, null);
-        } else {
-          callback(null, result);
-        }
-      });
+  collection.find({channel:currentChannel}).toArray(function(err, result) {
+    if (err) {
+      callback(err, null);
+    } else {
+      callback(null, result);
     }
-  })
+  });
+};
+
+SharedLinksController.prototype.new = function(db, document, callback) {
+  var collection = db.collection('sharedlinks');
+
+  collection.insert({streaming:document.streaming,
+                     channel: document.channel,
+                     login: document.login,
+                     link: document.link,
+                     date: document.date}), (function(err, result) {
+    if (err) {
+      callback(err, null);
+    } else {
+      callback(null, result);
+    }
+  });
 };
 
 module.exports = new SharedLinksController();
