@@ -1,31 +1,31 @@
 var SharedLinksController = function(){};
 
-SharedLinksController.prototype.find = function(db, currentChannel, callback) {
-  var collection = db.collection('sharedlinks');
+SharedLinksController.prototype.find = function(currentChannel, db, io) {
+    var collection = db.collection('sharedlinks');
 
-  collection.find({channel:currentChannel}).toArray(function(err, result) {
-    if (err) {
-      callback(err, null);
-    } else {
-      callback(null, result);
-    }
-  });
+    collection.find({channel:currentChannel}, {"sort" : [['date', 'asc']]}).toArray(function(err, result) {
+        if (err) {
+            console.log(err);
+        } else {
+            io.emit('loadchannel', result);
+        }
+    });
 };
 
-SharedLinksController.prototype.new = function(db, document, callback) {
-  var collection = db.collection('sharedlinks');
+SharedLinksController.prototype.new = function(msg, db, io) {
+    var collection = db.collection('sharedlinks');
 
-  collection.insert({streaming:document.streaming,
-                     channel: document.channel,
-                     login: document.login,
-                     link: document.link,
-                     date: document.date}), (function(err, result) {
-    if (err) {
-      callback(err, null);
-    } else {
-      callback(null, result);
-    }
-  });
+    collection.insert({streaming: 1,
+        channel: 1,
+        login: "gsuarez",
+        link: msg,
+        date: new Date()}, function(err, result) {
+            if (err) {
+                console.log(err);
+            } else {
+                io.emit('linkshared', msg);
+            }
+        });
 };
 
 module.exports = new SharedLinksController();
