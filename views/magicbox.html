@@ -2,16 +2,11 @@
 <html>
 <head>
     <title>Magic Box</title>
-    <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+    <link rel="stylesheet" type="text/css" href="/thirdparty/bootstrap/css/bootstrap.css">
 </head>
 <body>
-    Ejemplos:
-    <ul>
-        <li>Image: http://www.online-image-editor.com/styles/2013/images/example_image.png</li>
-        <li>Image: http://www.sitiosargentina.com.ar/wp-content/uploads/2014/11/perro.jpg</li>      
-        <li>Dibujo: https://docs.google.com/drawings/d/19i0f_Eo8UJ0x62Nrs15JWlzOVewMsHvjj9aeOSuCKvc/edit?usp=sharing</li>
-        <li>Doc: https://docs.google.com/document/d/1CBTXdfTAdxKb1LfPdwHQyY7MAEqtw51NfB8UEfnTy44/edit?usp=sharing</li>
-    </ul>
     <div id="magicbox">
         <div id="magicboxheader">
             <h1>Magic box - Channel 1</h1>
@@ -24,12 +19,13 @@
             </ul>
         </div>
         <div id="magicboxform">
-            <input id="sharedlink" required="required" autocomplete="off" onkeydown="if (event.keyCode == 13) document.getElementById('sharelink').click()"/>
-            <button id="sharelink" type="button">Send</button>
+            <input id="sharedlink" required="required" placeholder="Insert the link you want to share..." class="form-control" autocomplete="off" onkeydown="if (event.keyCode == 13) document.getElementById('sharelink').click()"/>
+            <button id="sharelink" type="button" class="btn btn-success">Send</button>
         </div>
     </div>
     <script src="/socket.io/socket.io.js"></script>
-    <script src="/thirdparty/jquery-1.11.1.js"></script>
+    <script src="/thirdparty/jquery/jquery-1.11.1.js"></script>
     <script src="/javascripts/controllers/magicboxController.js"></script>
+    <script src="/thirdparty/bootstrap/js/bootstrap.js"></script>
 </body>
 </html>
