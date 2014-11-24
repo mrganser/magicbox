@@ -8,16 +8,18 @@ $(function(){
         $("#magicboxobjectwrapper").append(magicbox);
     }
     function loadLinkOnHistoric(link, date){
-        $('#messages').prepend('<li>' + date.getDate() 
-            + '/' + date.getMonth() + '/' + date.getFullYear() + ' ' 
-            + date.getHours() + ':' + date.getMinutes()
-            + ': <a target="_blank" href="' 
-            + link + '">Link</a></li>');
+        $('#messages').prepend('<li>' + moment(date).format('DD/MM/YYYY HH:mm') 
+            + ': <a target="_blank" href="' + link + '">Link</a></li>');
     }
     $('#sharelink').click(function(){
-        if($('#sharedlink').val()){
+        var link = $('#sharedlink').val();
+        if (link && (_.endsWith(link, '.pdf') || _.endsWith(link, '.jpg') || _.endsWith(link, '.png')
+            || _.endsWith(link, '.pdf') || _.startsWith(link, 'https://docs.google.com'))) {
             socket.emit('linkshared', $('#sharedlink').val());
-            $('#sharedlink').val('');          
+            $('#sharedlink').val('');
+            $('#correctLink').fadeIn(100).delay(2500).fadeOut();
+        } else {
+            $('#invalidLink').fadeIn(100).delay(2500).fadeOut();
         }
     });
     socket.on('linkshared', function(link){
