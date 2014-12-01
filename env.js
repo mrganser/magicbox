@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var magicbox = require('./routes/magicbox');
+var channels = require('./routes/channels');
 
 var MongoClient = require('mongodb').MongoClient;
 
@@ -40,6 +41,7 @@ var APP_PORT = 3000;
 
     app.use('/', routes);
     app.use('/magicbox', magicbox);
+    app.use('/channels', channels);
 
     // catch 404 and forward to error handler
     app.use(function(req, res, next) {

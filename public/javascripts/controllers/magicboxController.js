@@ -14,7 +14,7 @@ $(function(){
     $('#sharelink').click(function(){
         var link = $('#sharedlink').val();
         if (link && (_.endsWith(link, '.pdf') || _.endsWith(link, '.jpg') || _.endsWith(link, '.png')
-            || _.endsWith(link, '.pdf') || _.startsWith(link, 'https://docs.google.com'))) {
+            || _.startsWith(link, 'https://docs.google.com'))) {
             socket.emit('linkshared', $('#sharedlink').val());
             $('#sharedlink').val('');
             $('#correctLink').fadeIn(100).delay(2500).fadeOut();

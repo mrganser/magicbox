@@ -5,7 +5,10 @@
 }
 
 body {
+  padding-top: 50px;
+  padding-bottom: 20px;
 }
+
 
 /* Magic box*/
 
@@ -34,7 +37,7 @@ body {
     width: 100%;
     flex: 1 100%;
 }
-#magicboxheader{
+#magicboxheader {
     color: white;
     border: solid 1px white;
 }
@@ -43,7 +46,7 @@ body {
     flex: 1 80%;
     height: 630px;
 }
-#magicboxhistoric{
+#magicboxhistoric {
     border: solid 1px white;
     flex: 1 20%;
     overflow-y: scroll;
@@ -55,11 +58,15 @@ body {
 #magicboxhistoric li {
     color: white;
 }
-#magicboxform{
+#magicboxform {
     border: solid 1px white;
     display: flex;
 }
-#magicboxform input{
+#magicboxform input {
     width: 90%;
     padding: .5%;
+}
+
+.text-center {
+    text-align: center;
 }
