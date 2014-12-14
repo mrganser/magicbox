@@ -96,7 +96,7 @@ var channels = require('./routes/channels');
  };
 
  var run = function(callback) {
-    server.listen(APP_PORT, APP_HOST, function(err) {
+    server.listen(APP_PORT, function(err) {
         if(err) {
             db.close();
             return callback(err);
