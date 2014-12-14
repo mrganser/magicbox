@@ -22,17 +22,8 @@ $(function(){
             $('#invalidLink').fadeIn(100).delay(2500).fadeOut();
         }
     });
-    socket.on('linkshared', function(link){
-        loadLinkOnHistoric(link, new Date());
+    socket.on('linkshared', function(link, date){
+        loadLinkOnHistoric(link, date);
         reloadEmbedContent(link);
     });
-    socket.on('loadchannel', function(links){
-        for (var i=0; i<links.length; i++) {
-            loadLinkOnHistoric(links[i].link, new Date(links[i].date));
-        }
-        reloadEmbedContent(links[links.length - 1].link);
-    });
-
-        //Load channel when you enter
-        socket.emit('loadchannel', 1);
-    });
+});

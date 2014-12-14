@@ -5,10 +5,6 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var routes = require('./routes/index');
-var magicbox = require('./routes/magicbox');
-var channels = require('./routes/channels');
-
 var MongoClient = require('mongodb').MongoClient;
 
 var app = express();
@@ -20,10 +16,22 @@ var MONGO_DB_URL = 'mongodb://localhost:27017/magicbox';
 var APP_HOST = 'localhost'; 
 var APP_PORT = 3000;
 
+var index = require('./routes/index');
+var channels = require('./routes/channels');
+
 /**
  * Set up the environment for the application
  */
  var initialize = function(callback) {
+    /*Pass db and io to routes*/
+    app.use(function(req, res, next) {
+      req.db = db;
+      req.io = io;
+      next();
+    });
+    /*Moment*/
+    app.locals.moment = require('moment');
+    
     /**
      * configure express
      */
@@ -39,8 +47,7 @@ var APP_PORT = 3000;
     app.use(cookieParser());
     app.use(express.static(path.join(__dirname, 'public')));
 
-    app.use('/', routes);
-    app.use('/magicbox', magicbox);
+    app.use('/', index);
     app.use('/channels', channels);
 
     // catch 404 and forward to error handler

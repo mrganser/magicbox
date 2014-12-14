@@ -1,0 +1,30 @@
+extends layout
+
+block content
+    #magicbox
+      #magicboxheader
+        h1 #{title}
+      #magicboxobjectwrapper
+        - if (links && links.length > 0)
+            object#magicboxobject(data="#{links[0].link}")
+        - else
+            object#magicboxobject          
+      #magicboxhistoric
+        h2 Last links
+        ul#messages
+            - each link in links
+                li #{moment(new Date(link.date)).format("DD/MM/YYYY HH:mm")}: 
+                    a(target="_blank", href="#{link.link}") Link
+      #magicboxform
+        input#sharedlink.form-control(required='required', placeholder='Insert the link you want to share...', autocomplete='off', onkeydown='if (event.keyCode == 13) document.getElementById("sharelink").click()')
+        button#sharelink.btn.btn-success(type='button') Send
+        #invalidLink.alert.alert-danger(style='padding: 6px 12px; margin-bottom: 0px; display: none;', role='alert')
+          span.glyphicon.glyphicon-exclamation-sign(aria-hidden='true')
+        #correctLink.alert.alert-success(style='padding: 6px 12px; margin-bottom: 0px; display: none;', role='alert')
+          span.glyphicon.glyphicon-ok-sign(aria-hidden='true')
+    script(src='/socket.io/socket.io.js')
+    script(src='/thirdparty/jquery/jquery-1.11.1.js')
+    script(src='/thirdparty/moment/moment.js')
+    script(src='/thirdparty/lodash/lodash.min.js')
+    script(src='/javascripts/controllers/magicboxController.js')
+    script(src='/thirdparty/bootstrap/js/bootstrap.js')

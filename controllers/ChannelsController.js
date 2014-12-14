@@ -1,13 +1,14 @@
 var ChannelsController = function(){};
 
-ChannelsController.prototype.findAll = function(db, io) {
+ChannelsController.prototype.findAll = function(db, callback) {
     var collection = db.collection('sharedlinks');
 
-    collection.find({channel:currentChannel}, {"sort" : [['date', 'asc']]}).toArray(function(err, result) {
+    collection.distinct('login', function(err, result) {
         if (err) {
             console.log(err);
+        	callback(err, []);
         } else {
-            io.emit('loadchannel', result);
+        	callback(null, result);
         }
     });
 };

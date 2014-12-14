@@ -15,7 +15,6 @@ env.initialize(function(err, app, io, db) {
     //
     io.sockets.on('connection', function (socket) {
         socket.on('linkshared', function(msg){ sharedLinksController.new(msg, db, io)});
-        socket.on('loadchannel', function(currentChannel){ sharedLinksController.find(currentChannel, db, io)});
     });
 
     //

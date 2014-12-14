@@ -70,3 +70,9 @@ body {
 .text-center {
     text-align: center;
 }
+#logo {
+	height: 34px;
+}
+.navbar-brand {
+	padding: 8px 8px;
+}

@@ -2,21 +2,8 @@ extends layout
 
 block content
     .container
-        .row
-          .col-md-4
-              h2 Channel 1
-              p
-                | 
-              p
-
-          .col-md-4
-            h2 Channel 2
-              p
-                | 
-              p
-
-          .col-md-4
-              h2 Channel 3
-              p
-                | 
-              p
+        h1 Channels
+        .list-group
+          - each channel in channels            
+              a.list-group-item(href="/channels/" + channel)
+                  h4.list-group-item-heading #{channel}'s channel
