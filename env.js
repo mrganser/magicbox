@@ -14,7 +14,7 @@ var io = require('socket.io').listen(server);
 var db = null;
 var MONGO_DB_URL = 'mongodb://magicbox:magicbox@ds063150.mongolab.com:63150/heroku_app32520460';
 var APP_HOST = 'localhost'; 
-var APP_PORT = 3000;
+var APP_PORT = 5000;
 
 var index = require('./routes/index');
 var channels = require('./routes/channels');
