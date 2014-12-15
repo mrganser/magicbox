@@ -12,7 +12,7 @@ $(function(){
     }
     $('#sharelink').click(function(){
         var link = $('#sharedlink').val();
-        if (link && (_.endsWith(link, '.pdf') || _.endsWith(link, '.jpg') || _.endsWith(link, '.png')
+        if (link && (_.endsWith(link, '.pdf') || _.endsWith(link, '.jpg') || _.endsWith(link, '.png') || _.endsWith(link, '.gif')
             || _.startsWith(link, 'https://docs.google.com'))) {
             socket.emit('linkshared', $('#sharedlink').val());
             $('#sharedlink').val('');
