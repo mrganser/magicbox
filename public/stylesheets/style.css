@@ -10,65 +10,38 @@ body {
 }
 
 
-/* Magic box*/
-
+/* Magic box */
+#magicbox {
+    margin: 20px;
+    background-color: #009688;
+}
+#magicboxheader1 {
+    color: white;
+    padding-left: 10px;
+}
+#magicboxheader2 {
+    color: white;
+}
 #magicboxobject {
     width: 100%;
     height: 600px;
-}
-
-#magicbox {
-    display: -webkit-box;
-    display: -moz-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-flex-flow: row wrap;
-    flex-flow: row wrap;
-    
-    font-weight: bold;
-    text-align: center;
-    background-color: #5DC1B9;
-    width: 80%;
-    border: 2px solid #AAAAAA;
-}
-#magicbox > * {
     padding: 10px;
-    width: 100%;
-    flex: 1 100%;
-}
-#magicboxheader {
-    color: white;
-    border: solid 1px white;
-}
-#magicboxobjectwrapper {
-    border: solid 1px white;
-    flex: 1 80%;
-    height: 630px;
 }
 #magicboxhistoric {
-    border: solid 1px white;
-    flex: 1 20%;
     overflow-y: scroll;
-    height: 630px;
+    height: 600px;
+    background-color: #009688;
 }
 #magicboxhistoric ul {
     list-style-type: none;
+    color: white;
 }
-#magicboxhistoric li {
+#magicboxhistoric a {
     color: white;
 }
 #magicboxform {
-    border: solid 1px white;
-    display: flex;
-}
-#magicboxform input {
-    width: 90%;
-    padding: .5%;
-}
-
-.text-center {
-    text-align: center;
+    border-top: solid 2px white;
+    padding: 10px;
 }
 #logo {
 	height: 34px;

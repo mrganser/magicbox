@@ -8,8 +8,7 @@ $(function(){
         $("#magicboxobjectwrapper").append(magicbox);
     }
     function loadLinkOnHistoric(link, date){
-        $('#messages').prepend('<li>' + moment(date).format('DD/MM/YYYY HH:mm') 
-            + ': <a target="_blank" href="' + link + '">Link</a></li>');
+        $('#messages').prepend('<li><a target="_blank" href="' + link + '">'+ moment(date).format('DD/MM/YYYY HH:mm') + '</a></li>');
     }
     $('#sharelink').click(function(){
         var link = $('#sharedlink').val();
