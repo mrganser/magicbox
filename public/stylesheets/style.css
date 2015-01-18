@@ -31,7 +31,7 @@ body {
     height: 0;
     overflow: hidden;
 }
-#magicboxobject {
+#magicboxobjectwrapper > *{
     position: absolute;
     padding: 10px;
     top: 0;
