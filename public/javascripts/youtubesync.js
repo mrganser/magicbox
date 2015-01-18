@@ -18,7 +18,6 @@ function onPlayerReady() {
 }
 
 function onPlayerStateChange(event) {
-console.log(event.data);
 	if (event.data == 1) {
 		socket.emit('playvideo', getVideoTime());
 	} else if (event.data == 2) {
