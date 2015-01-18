@@ -1,0 +1,18 @@
+extends layout
+
+block content
+    .container
+        h1 Creating new channel
+        if error
+            .alert.alert-danger(role='alert')
+                span.glyphicon.glyphicon-exclamation-sign(aria-hidden='true')
+                span.sr-only Error: 
+                span  #{error}
+        form(method="POST" action="/newchannel")
+            .form-group
+                label(for="channelname") Channel's name
+                input.form-control(id="channelname" name="channelname" placeholder="Enter channel's name" required="required")
+            .form-group
+                .g-recaptcha(data-sitekey="6LdvpwATAAAAAAOmIlINSJluyj3IhxJiHUwA9j29")
+            button.btn.btn-success(type='submit') Create
+            a.btn.btn-default(href='/channels', role='button') Cancel

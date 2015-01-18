@@ -14,8 +14,11 @@ $(function(){
         var link = $('#sharedlink').val();
         if (link && (_.endsWith(link, '.pdf') || _.endsWith(link, '.jpg') || _.endsWith(link, '.png') || _.endsWith(link, '.gif')
             || _.startsWith(link, 'https://docs.google.com'))) {
-            socket.emit('linkshared', $('#sharedlink').val());
+            socket.emit('linkshared', local_channel, $('#sharedlink').val());
             $('#sharedlink').val('');
+            var button = $(this);
+            button.attr("disabled", true);
+            setTimeout(function() { button.removeAttr("disabled"); }, 10000);
             $('#correctLink').fadeIn(100).delay(2500).fadeOut();
         } else {
             $('#invalidLink').fadeIn(100).delay(2500).fadeOut();

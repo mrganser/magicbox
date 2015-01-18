@@ -11,6 +11,7 @@ html
     link(rel='icon', href='/favicon.ico')
     link(href='/thirdparty/bootstrap/css/bootstrap.min.css', rel='stylesheet')
     link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src='https://www.google.com/recaptcha/api.js')
   body
     .navbar.navbar-inverse.navbar-fixed-top(role='navigation')
       .container
@@ -23,12 +24,11 @@ html
           a.navbar-brand(href='/')
             img#logo(src='/images/magixbox.png', alt='Magic Box')
         .navbar-collapse.collapse
-          form.navbar-form.navbar-right(role='form')
-            .form-group
-              input.form-control(type='text', placeholder='User')
-            .form-group
-              input.form-control(type='password', placeholder='Password')
-            button.btn.btn-success(type='submit') Sign in
+          ul.nav.navbar-nav.navbar-right
+            li
+              a(href='/channels', role='button') Channels
+            li
+              a(href='/channels', role='button') Create channel
     block content
 
     script(src='/thirdparty/jquery/jquery-1.11.1.js')

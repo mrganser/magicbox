@@ -12,9 +12,9 @@ router.get('/', function(req, res) {
 });
 
 /*Access one channel*/
-router.get('/:login', function(req, res) {
-	sharedLinksController.find(req.params.login, req.db, function(error, result){
-		res.render('magicbox', {title: req.params.login+' - Magic Box', links: result});
+router.get('/:channel', function(req, res) {
+	sharedLinksController.find(req.params.channel, req.db, function(error, result){
+		res.render('magicbox', {channel: req.params.channel, links: result});
 	});
 });
 

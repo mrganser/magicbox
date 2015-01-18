@@ -11,10 +11,10 @@ env.initialize(function(err, app, io, db) {
     //app.get('/', main_controller.index());
 
     //
-    // websocket api end point handlers (our API)
+    // Websocket api
     //
     io.sockets.on('connection', function (socket) {
-        socket.on('linkshared', function(msg){ sharedLinksController.new(msg, db, io)});
+        socket.on('linkshared', function(channel, msg){ sharedLinksController.new(channel, msg, db, io)});
     });
 
     //

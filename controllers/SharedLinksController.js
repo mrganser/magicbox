@@ -13,12 +13,12 @@ SharedLinksController.prototype.find = function(currentChannel, db, callback) {
     });
 };
 
-SharedLinksController.prototype.new = function(msg, db, io) {
+SharedLinksController.prototype.new = function(channel, msg, db, io) {
     var collection = db.collection('sharedlinks');
     var currentDate = new Date();
 
     collection.insert({
-        login: "gsuarez",
+        login: channel,
         link: msg,
         date: currentDate}, function(err, result) {
             if (err) {
