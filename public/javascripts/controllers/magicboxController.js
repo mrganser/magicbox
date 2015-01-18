@@ -15,7 +15,10 @@ $(function(){
         $('#magicboxobject').remove();
         $('#magicboxiframe').remove();
         $("#magicboxobjectwrapper").append(magicboxobject);   
-        $("#magicboxobjectwrapper").append(magicboxiframe);  
+        $("#magicboxobjectwrapper").append(magicboxiframe);
+        if (_.startsWith(link, 'https://www.youtube.com/embed/')){
+            onYouTubeIframeAPIReady();
+        }
     }
     function loadLinkOnHistoric(link, date){
         $('#messages').prepend('<li><a target="_blank" href="' + link + '">'+ moment(date).format('DD/MM/YYYY HH:mm') + '</a></li>');
@@ -25,7 +28,7 @@ $(function(){
         if (link && (_.endsWith(link, '.pdf') || _.endsWith(link, '.jpg') || _.endsWith(link, '.png') || _.endsWith(link, '.gif')
             || _.startsWith(link, 'https://docs.google.com') 
             || link.match(regexYoutube))) {
-            link = link.replace(regexYoutube, 'https://www.youtube.com/embed/$1');
+            link = link.replace(regexYoutube, 'https://www.youtube.com/embed/$1?enablejsapi=1');
             socket.emit('linkshared', local_channel, link);
             $('#sharedlink').val('');
             var button = $(this);
