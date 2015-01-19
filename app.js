@@ -15,8 +15,8 @@ env.initialize(function(err, app, io, db) {
     //
     io.sockets.on('connection', function (socket) {
         socket.on('linkshared', function(channel, msg){ sharedLinksController.new(channel, msg, db, io); });
-        socket.on('playvideo', function(time){ socket.broadcast.emit('playvideo', time); });
-        socket.on('pausevideo', function(time){ socket.broadcast.emit('pausevideo', time); });        
+        socket.on('playvideo', function(channel, time){ socket.broadcast.emit('playvideo', channel, time); });
+        socket.on('pausevideo', function(channel, time){ socket.broadcast.emit('pausevideo', channel, time); });        
     });
 
     //

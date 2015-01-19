@@ -24,7 +24,7 @@ SharedLinksController.prototype.new = function(channel, msg, db, io) {
             if (err) {
                 console.log(err);
             } else {
-                io.emit('linkshared', msg, currentDate);
+                io.emit('linkshared', channel, msg, currentDate);
             }
         });
 };

@@ -21,24 +21,30 @@ function onPlayerReady() {
 function onPlayerStateChange(event) {
 	switch(event.data) {
         case YT.PlayerState.PLAYING:
-			socket.emit('playvideo', player.getCurrentTime());
+			socket.emit('playvideo', LOCAL_CHANNEL, player.getCurrentTime());
             break;
         case YT.PlayerState.PAUSED:
-			socket.emit('pausevideo', player.getCurrentTime());
+			socket.emit('pausevideo', LOCAL_CHANNEL, player.getCurrentTime());
             break;
     }
 }
 
-socket.on('playvideo', function(time){
-	if (player && player.getPlayerState() != YT.PlayerState.PLAYING) {
-		player.seekTo(time);
-		player.playVideo();
+//Client socket API for youtube events
+
+socket.on('playvideo', function(channel, time){
+    if (LOCAL_CHANNEL == channel) {
+		if (player && player.getPlayerState() != YT.PlayerState.PLAYING) {
+			player.seekTo(time);
+			player.playVideo();
+		}
 	}
 });
 
-socket.on('pausevideo', function(time){
-	if (player && player.getPlayerState() == YT.PlayerState.PLAYING) {
-		player.seekTo(time);
-		player.pauseVideo();
+socket.on('pausevideo', function(channel, time){
+    if (LOCAL_CHANNEL == channel) {
+		if (player && player.getPlayerState() == YT.PlayerState.PLAYING) {
+			player.seekTo(time);
+			player.pauseVideo();
+		}
 	}
 });

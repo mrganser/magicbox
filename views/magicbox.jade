@@ -8,20 +8,20 @@ block content
                     .col-md-12
                         #magicboxheader1
                             h2 #{channel} - Magic Box
-                            script(type='text/javascript') var local_channel =!{JSON.stringify(channel)}
+                            script(type='text/javascript') var LOCAL_CHANNEL =!{JSON.stringify(channel)}
                 .row
                     .col-md-12
                         #magicboxobjectwrapper
                             - if (links && links.length > 0)
                                 - if (links[0].link.indexOf('https://www.youtube.com/embed/') >= 0)
-                                    object#magicboxobject 
+                                    object#magicboxobject(style="visibility: hidden;")
                                     iframe#magicboxiframe(src="#{links[0].link}" frameborder="0" allowfullscreen)
                                 -else
                                     object#magicboxobject(data="#{links[0].link}")
-                                    iframe#magicboxiframe(src="" frameborder="0" allowfullscreen)
+                                    iframe#magicboxiframe(src="" frameborder="0" allowfullscreen style="visibility: hidden;")
                             - else
-                                object#magicboxobject 
-                                iframe#magicboxiframe(src="" frameborder="0" allowfullscreen)
+                                object#magicboxobject(style="visibility: hidden;")
+                                iframe#magicboxiframe(src="" frameborder="0" allowfullscreen style="visibility: hidden;")
             .col-md-2
                 .row
                     .col-md-12.text-center
