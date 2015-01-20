@@ -3,7 +3,7 @@ tag.src = "https://www.youtube.com/iframe_api";
 var firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-var player;
+var player, comesFromSocket = false;
 
 function onYouTubeIframeAPIReady() {
 	player = new YT.Player('magicboxiframe', {
@@ -19,14 +19,20 @@ function onPlayerReady() {
 }
 
 function onPlayerStateChange(event) {
-	switch(event.data) {
-        case YT.PlayerState.PLAYING:
-			socket.emit('playvideo', LOCAL_CHANNEL, player.getCurrentTime());
-            break;
-        case YT.PlayerState.PAUSED:
-			socket.emit('pausevideo', LOCAL_CHANNEL, player.getCurrentTime());
-            break;
-    }
+	if (!comesFromSocket){
+		switch(event.data) {
+	        case YT.PlayerState.PLAYING:
+				socket.emit('playvideo', LOCAL_CHANNEL, player.getCurrentTime());
+	            break;
+	        case YT.PlayerState.PAUSED:
+				socket.emit('pausevideo', LOCAL_CHANNEL, player.getCurrentTime());
+	            break;
+	    }
+	} else {
+		if (event.data == YT.PlayerState.PLAYING || event.data == YT.PlayerState.PAUSED){
+			comesFromSocket = false;
+		}
+	}
 }
 
 //Client socket API for youtube events
@@ -34,6 +40,7 @@ function onPlayerStateChange(event) {
 socket.on('playvideo', function(channel, time){
     if (LOCAL_CHANNEL == channel) {
 		if (player && player.getPlayerState() != YT.PlayerState.PLAYING) {
+			comesFromSocket = true;
 			player.seekTo(time);
 			player.playVideo();
 		}
@@ -43,6 +50,7 @@ socket.on('playvideo', function(channel, time){
 socket.on('pausevideo', function(channel, time){
     if (LOCAL_CHANNEL == channel) {
 		if (player && player.getPlayerState() == YT.PlayerState.PLAYING) {
+			comesFromSocket = true;
 			player.seekTo(time);
 			player.pauseVideo();
 		}
