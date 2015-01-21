@@ -57,6 +57,10 @@ $(function(){
             //Show correct link notification
             $('#correctLink').fadeIn(100).delay(2500).fadeOut();
         } else {
+            //Disable button for 3 seconds to avoid spamming
+            var button = $(this);
+            button.attr("disabled", true);
+            setTimeout(function() { button.removeAttr("disabled"); }, 3000);
             //Show invalid link notification
             $('#invalidLink').fadeIn(100).delay(2500).fadeOut();
         }
