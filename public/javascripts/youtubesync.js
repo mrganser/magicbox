@@ -6,12 +6,14 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 var player, comesFromSocket = false;
 
 function onYouTubeIframeAPIReady() {
-	player = new YT.Player('magicboxiframe', {
-		events: {
-			'onReady': onPlayerReady,
-			'onStateChange': onPlayerStateChange
-		}
-	});
+	if (document.getElementById('magicboxiframe').getAttribute('src')){
+		player = new YT.Player('magicboxiframe', {
+			events: {
+				'onReady': onPlayerReady,
+				'onStateChange': onPlayerStateChange
+			}
+		});
+	}
 }
 
 function onPlayerReady() {

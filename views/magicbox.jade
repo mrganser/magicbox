@@ -9,6 +9,7 @@ block content
                         #magicboxheader1
                             h2 #{channel} - Magic Box
                             script(type='text/javascript') var LOCAL_CHANNEL =!{JSON.stringify(channel)}
+                            script(type='text/javascript') var SECRET =!{JSON.stringify(secret)}
                 .row
                     .col-md-12
                         #magicboxobjectwrapper
@@ -33,10 +34,10 @@ block content
                         ul#messages
                             - each link in links
                                 li 
-                                    a(target="_blank", href="#{link.link}") #{moment(new Date(link.date)).format("DD/MM/YYYY HH:mm")}       
+                                    a(onclick="loadPastLink('" + link.link + "')" title="#{link.link}") #{moment(new Date(link.date)).format("DD/MM/YYYY HH:mm")}       
         #magicboxform.row
             .input-group
-                input#sharedlink.form-control(required='required', placeholder='Insert the link you want to share...', autocomplete='off', onkeydown='if (event.keyCode == 13) document.getElementById("sharelink").click()')
+                input#sharedlink.form-control(required='required', placeholder='Insert the link you want to share...', autocomplete='off', onkeydown='clickSend(event)')
                 span.input-group-btn
                     button#sharelink.btn.btn-success(type='button') Send
                 #invalidLink.alert.alert-danger.input-group-addon(style='padding: 6px 12px; margin-bottom: 0px; display: none;', role='alert')

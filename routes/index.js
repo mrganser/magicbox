@@ -16,14 +16,18 @@ router.get('/newchannel', function(req, res) {
 /* CREATE new channel. */
 router.post('/newchannel', function(req, res) {
 	var channelname = req.body.channelname;
+    var secret = req.body.secret;
 	var captcha = req.body["g-recaptcha-response"];
 	if (captcha){
 		verifyRecaptcha(captcha, function(success) {
             if (success) {
 			    if (channelname){
-					sharedLinksController.find(channelname, req.db, function(error, result){
-						res.render('magicbox', {channel: channelname, links: result});
-					});
+                    if (secret){
+                        console.log('/channels/' + channelname + '/private');
+                        res.redirect('/channels/' + channelname + '/private');
+                    } else{
+                        res.redirect('/channels/' + channelname);
+                    }
 				} else {
 			    	res.render('newchannel', {title: 'Creating new channel', error: "Invalid channel's name"});	
 				}

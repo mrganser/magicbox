@@ -26,6 +26,14 @@ $(function(){
         if (_.startsWith(link, 'https://www.youtube.com/embed/')){
             onYouTubeIframeAPIReady();
         }
+        //Color selected links
+        $("#messages > li").css("background-color", ""); 
+        $("a[title='" + link + "']").parent().css("background-color", "#449D44"); 
+    }
+
+    loadPastLink = function (link){
+        reloadEmbedContent(link);
+        socket.emit('linkchanged', LOCAL_CHANNEL, SECRET, link);
     }
 
     function loadLinkOnHistoric(link, date){
@@ -39,7 +47,7 @@ $(function(){
                  || link.match(regexYoutube))) {  //Youtube
             
             link = link.replace(regexYoutube, 'https://www.youtube.com/embed/$1?enablejsapi=1');  //Transform YouTube's link to correct embed link
-            socket.emit('linkshared', LOCAL_CHANNEL, link);
+            socket.emit('linkshared', LOCAL_CHANNEL, SECRET, link);
 
             $('#sharedlink').val('');
             //Disable button for 10 seconds to avoid spamming
@@ -55,9 +63,16 @@ $(function(){
     });
     
     //Client socket API for linkshared event
-    socket.on('linkshared', function(channel, link, date){
-        if (LOCAL_CHANNEL == channel) {
+    socket.on('linkshared', function(channel, secret, link, date){
+        if (LOCAL_CHANNEL == channel && SECRET == secret) {
             loadLinkOnHistoric(link, date);
+            reloadEmbedContent(link);
+        }
+    });
+    
+    //Client socket API for linkchanged event
+    socket.on('linkchanged', function(channel, secret, link){
+        if (LOCAL_CHANNEL == channel && SECRET == secret) {
             reloadEmbedContent(link);
         }
     });

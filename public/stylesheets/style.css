@@ -48,8 +48,13 @@ body {
     list-style-type: none;
     color: white;
 }
+#magicboxhistoric ul li:hover{
+    background-color: #5CB85C;
+}
 #magicboxhistoric a {
     color: white;
+    text-decoration: none;
+    cursor: pointer;
 }
 #magicboxform {
     border-top: solid 2px white;

@@ -11,10 +11,17 @@ router.get('/', function(req, res) {
 	});
 });
 
+/*Access one private channel*/
+router.get('/:channel/private', function(req, res) {
+	sharedLinksController.find(req.params.channel, true, req.db, function(error, result){
+		res.render('magicbox', {channel: req.params.channel, links: result, secret: true});
+	});
+});
+
 /*Access one channel*/
 router.get('/:channel', function(req, res) {
-	sharedLinksController.find(req.params.channel, req.db, function(error, result){
-		res.render('magicbox', {channel: req.params.channel, links: result});
+	sharedLinksController.find(req.params.channel, false, req.db, function(error, result){
+		res.render('magicbox', {channel: req.params.channel, links: result, secret: false});
 	});
 });
 
