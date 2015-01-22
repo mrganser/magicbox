@@ -23,7 +23,6 @@ router.post('/newchannel', function(req, res) {
             if (success) {
 			    if (channelname){
                     if (secret){
-                        console.log('/channels/' + channelname + '/private');
                         res.redirect('/channels/' + channelname + '/private');
                     } else{
                         res.redirect('/channels/' + channelname);

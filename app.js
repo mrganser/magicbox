@@ -6,11 +6,6 @@ env.initialize(function(err, app, io, db) {
     if(err) throw err;
 
     //
-    // http routes
-    //
-    //app.get('/', main_controller.index());
-
-    //
     // Websocket api
     //
     io.sockets.on('connection', function (socket) {
