@@ -53,7 +53,7 @@ $(function(){
             //Disable button for 10 seconds to avoid spamming
             var button = $(this);
             button.attr("disabled", true);
-            setTimeout(function() { button.removeAttr("disabled"); }, 10000);
+            setTimeout(function() { button.removeAttr("disabled"); }, 3000);
             //Show correct link notification
             $('#correctLink').fadeIn(100).delay(2500).fadeOut();
         } else {

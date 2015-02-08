@@ -14,11 +14,11 @@ block content
                     .col-md-12
                         #magicboxobjectwrapper
                             - if (links && links.length > 0)
-                                - if (links[0].link.indexOf('https://www.youtube.com/embed/') >= 0)
+                                - if (links[links.length - 1].link.indexOf('https://www.youtube.com/embed/') >= 0)
                                     object#magicboxobject(style="visibility: hidden;")
-                                    iframe#magicboxiframe(src="#{links[0].link}" frameborder="0" allowfullscreen)
+                                    iframe#magicboxiframe(src="#{links[links.length - 1].link}" frameborder="0" allowfullscreen)
                                 -else
-                                    object#magicboxobject(data="#{links[0].link}")
+                                    object#magicboxobject(data="#{links[links.length - 1].link}")
                                     iframe#magicboxiframe(src="" frameborder="0" allowfullscreen style="visibility: hidden;")
                             - else
                                 object#magicboxobject(style="visibility: hidden;")

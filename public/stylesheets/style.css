@@ -31,7 +31,18 @@ body {
     height: 0;
     overflow: hidden;
 }
-#magicboxobjectwrapper > *{
+#magicboxobjectwrapper > #magicboxobject{
+    position: absolute;
+    padding: 10px;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    max-width: 100%;
+    max-height: 100%;
+}
+#magicboxobjectwrapper > #magicboxiframe{
     position: absolute;
     padding: 10px;
     top: 0;

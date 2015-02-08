@@ -3,7 +3,7 @@ var SharedLinksController = function(){};
 SharedLinksController.prototype.find = function(currentChannel, secret, db, callback) {
     var collection = db.collection('sharedlinks');
 
-    collection.find({channel:currentChannel, secret: secret}).sort({date:-1}).toArray(function(err, result) {
+    collection.find({channel:currentChannel, secret: secret}).sort({date:1}).toArray(function(err, result) {
         if (err) {
             console.log(err);
             callback(err, []);
