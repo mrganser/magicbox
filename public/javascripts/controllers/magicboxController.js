@@ -40,6 +40,11 @@ $(function(){
         $('#messages').prepend('<li><a target="_blank" href="' + link + '">'+ moment(date).format('DD/MM/YYYY HH:mm') + '</a></li>');
     }
 
+    function playAudio(){
+        var audio = new Audio('/sounds/notification.ogg');
+        audio.play();
+    }
+
     $('#sharelink').click(function(){
         var link = $('#sharedlink').val();
         if (link && (_.endsWith(link, '.pdf') || _.endsWith(link, '.jpg') || _.endsWith(link, '.png') || _.endsWith(link, '.gif')  //Media
@@ -71,6 +76,7 @@ $(function(){
         if (LOCAL_CHANNEL == channel && SECRET == secret) {
             loadLinkOnHistoric(link, date);
             reloadEmbedContent(link);
+            playAudio();
         }
     });
     
