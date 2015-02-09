@@ -47,7 +47,7 @@ $(function(){
 
     $('#sharelink').click(function(){
         var link = $('#sharedlink').val();
-        if (link && (_.endsWith(link, '.pdf') || _.endsWith(link, '.jpg') || _.endsWith(link, '.png') || _.endsWith(link, '.gif')  //Media
+        if (link && (_.endsWith(link, '.pdf') || _.endsWith(link, '.jpg') || _.endsWith(link, '.jpeg') || _.endsWith(link, '.png') || _.endsWith(link, '.gif')  //Media
                  || _.startsWith(link, 'https://docs.google.com') //Google docs
                  || link.match(regexYoutube))) {  //Youtube
             
