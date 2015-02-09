@@ -37,7 +37,7 @@ $(function(){
     }
 
     function loadLinkOnHistoric(link, date){
-        $('#messages').prepend('<li><a target="_blank" href="' + link + '">'+ moment(date).format('DD/MM/YYYY HH:mm') + '</a></li>');
+        $('#messages').append('<li><a target="_blank" href="' + link + '">'+ moment(date).format('DD/MM/YYYY HH:mm') + '</a></li>');
     }
 
     function playAudio(){
