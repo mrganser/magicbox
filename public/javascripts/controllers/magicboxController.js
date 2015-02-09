@@ -7,7 +7,7 @@ $(function(){
         var magicboxobject = $('#magicboxobject').clone();
         var magicboxiframe = $('#magicboxiframe').clone();
         //Uses iframe for youtube videos and object for the rest of media
-        if (_.startsWith(link, 'https://www.youtube.com/embed/')){
+        if (_.startsWith(link, 'https://www.youtube.com/embed/') || _.endsWith(link, '.webm')){
             magicboxiframe.attr('src', link);
             magicboxiframe.css('visibility', 'visible');
             magicboxobject.attr('data', '');
@@ -47,7 +47,7 @@ $(function(){
 
     $('#sharelink').click(function(){
         var link = $('#sharedlink').val();
-        if (link && (_.endsWith(link, '.pdf') || _.endsWith(link, '.jpg') || _.endsWith(link, '.jpeg') || _.endsWith(link, '.png') || _.endsWith(link, '.gif')  //Media
+        if (link && (_.endsWith(link, '.pdf') || _.endsWith(link, '.jpg') || _.endsWith(link, '.webm') || _.endsWith(link, '.jpeg') || _.endsWith(link, '.png') || _.endsWith(link, '.gif')  //Media
                  || _.startsWith(link, 'https://docs.google.com') //Google docs
                  || link.match(regexYoutube))) {  //Youtube
             

@@ -14,7 +14,7 @@ block content
                     .col-md-12
                         #magicboxobjectwrapper
                             - if (links && links.length > 0)
-                                - if (links[links.length - 1].link.indexOf('https://www.youtube.com/embed/') >= 0)
+                                - if (links[links.length - 1].link.indexOf('https://www.youtube.com/embed/') >= 0  || links[links.length - 1].link.indexOf('.webm', links[links.length - 1].link.length - '.webm'.length) !== -1)
                                     object#magicboxobject(style="visibility: hidden;")
                                     iframe#magicboxiframe(src="#{links[links.length - 1].link}" frameborder="0" allowfullscreen)
                                 -else
