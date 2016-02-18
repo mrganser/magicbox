@@ -3,7 +3,7 @@ var socket = io();
 $(function(){
     var regexYoutube = /https?:\/\/(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube(?:-nocookie)?\.com\S*[^\w\s-])([\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|<\/a>))[?=&+%\w.-]*/ig;
     
-    var acceptedTypesOfContent [
+    var acceptedTypesOfContent = [
         /\.(webm|pdf|gif|jpg|jpeg|png)$/i,
         regexYoutube,
         /^https:\/\/docs.google.com/i
