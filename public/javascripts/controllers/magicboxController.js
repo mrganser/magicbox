@@ -3,14 +3,16 @@ var socket = io();
 $(function(){
     var regexYoutube = /https?:\/\/(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube(?:-nocookie)?\.com\S*[^\w\s-])([\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|<\/a>))[?=&+%\w.-]*/ig;
     
-    var acceptedTypesOfContent = [
-        /^https?:\/\/.*\.(webm|pdf|gif|jpg|jpeg|png)$/i,
-        regexYoutube,
-        /^https:\/\/docs.google.com/i
-    ];
+    var acceptedTypesOfContent = {
+        img: { regex: /^https?:\/\/.*\.(webm|pdf|gif|jpg|jpeg|png)$/i, fa: 'fa-file-image-o' },
+        pdf: { regex: /^https?:\/\/.*\.pdf$/i, fa: 'fa-file-pdf-o' },
+        webm: { regex: /^https?:\/\/.*\.webm$/i, fa: 'fa-film' },
+        youtube: { regex: regexYoutube, fa: 'fa-youtube-play' },
+        docs: { regex: /^https:\/\/docs.google.com/i, fa: 'fa-file-text' }        
+    };
 
     function checkCompatibility(link){
-        return _.some(acceptedTypesOfContent, function(regexp){
+        return _.some(_.pluck(_.values(acceptedTypesOfContent), 'regex'), function(regexp){
             return regexp.test(link);
         });
     }
@@ -57,7 +59,13 @@ $(function(){
     }
 
     function loadLinkOnHistoric(link, date){
-        $('#messages').append('<li><a onclick="loadPastLink(\'' + link + '\')" title="' + link + '">' + moment(date).format('DD/MM/YYYY HH:mm') + '</a></li>');
+        var classForType = 'fa-arrow-right';  //Default
+        _.forEach(_.values(acceptedTypesOfContent), function(typeObject) {
+            if (typeObject.regex.test(link)) {
+                classForType = typeObject.fa;
+            }
+        });
+        $('#messages').append('<li><span class="fa ' + classForType + '"></span><a onclick="loadPastLink(\'' + link + '\')" title="' + link + '">' + moment(date).format('DD/MM/YYYY HH:mm') + '</a></li>');
     }
 
     function playAudio(){
