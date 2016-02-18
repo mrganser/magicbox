@@ -4,11 +4,11 @@ $(function(){
     var regexYoutube = /https?:\/\/(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube(?:-nocookie)?\.com\S*[^\w\s-])([\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|<\/a>))[?=&+%\w.-]*/ig;
     
     var acceptedTypesOfContent = {
-        img: { regex: /^https?:\/\/.*\.(webm|pdf|gif|jpg|jpeg|png)$/i, fa: 'fa-file-image-o' },
-        pdf: { regex: /^https?:\/\/.*\.pdf$/i, fa: 'fa-file-pdf-o' },
-        webm: { regex: /^https?:\/\/.*\.webm$/i, fa: 'fa-film' },
-        youtube: { regex: regexYoutube, fa: 'fa-youtube-play' },
-        docs: { regex: /^https:\/\/docs.google.com/i, fa: 'fa-file-text' }        
+        img: { regex: /^https?:\/\/.*\.(webm|pdf|gif|jpg|jpeg|png)$/i, icon: 'fa-file-image-o' },
+        pdf: { regex: /^https?:\/\/.*\.pdf$/i, icon: 'fa-file-pdf-o' },
+        webm: { regex: /^https?:\/\/.*\.webm$/i, icon: 'fa-film' },
+        youtube: { regex: regexYoutube, icon: 'fa-youtube-play' },
+        docs: { regex: /^https:\/\/docs.google.com/i, icon: 'fa-file-text' }        
     };
 
     function checkCompatibility(link){
@@ -58,14 +58,19 @@ $(function(){
         socket.emit('linkchanged', LOCAL_CHANNEL, SECRET, link);
     }
 
-    function loadLinkOnHistoric(link, date){
+    function iconClassForLink(link){
         var classForType = 'fa-arrow-right';  //Default
         _.forEach(_.values(acceptedTypesOfContent), function(typeObject) {
             if (typeObject.regex.test(link)) {
-                classForType = typeObject.fa;
+                classForType = typeObject.icon;
             }
         });
-        $('#messages').append('<li><span class="fa ' + classForType + '"></span><a onclick="loadPastLink(\'' + link + '\')" title="' + link + '">' + moment(date).format('DD/MM/YYYY HH:mm') + '</a></li>');
+        return classForType;    
+    }
+
+    function loadLinkOnHistoric(link, date){
+        var classForType = iconClassForLink(link);
+        $('#messages').append('<li><span class="fa ' + classForType + '"></span> <a onclick="loadPastLink(\'' + link + '\')" title="' + link + '">' + moment(date).format('DD/MM/YYYY HH:mm') + '</a></li>');
     }
 
     function playAudio(){
@@ -84,15 +89,15 @@ $(function(){
             $('#sharedlink').val('');
             //Disable button for 10 seconds to avoid spamming
             var button = $(this);
-            button.attr("disabled", true);
-            setTimeout(function() { button.removeAttr("disabled"); }, 3000);
+            button.attr('disabled', true);
+            setTimeout(function() { button.removeAttr('disabled'); }, 3000);
             //Show correct link notification
             $('#correctLink').fadeIn(100).delay(2500).fadeOut();
         } else {
             //Disable button for 3 seconds to avoid spamming
             var button = $(this);
-            button.attr("disabled", true);
-            setTimeout(function() { button.removeAttr("disabled"); }, 3000);
+            button.attr('disabled', true);
+            setTimeout(function() { button.removeAttr('disabled'); }, 3000);
             //Show invalid link notification
             $('#invalidLink').fadeIn(100).delay(2500).fadeOut();
         }
@@ -113,4 +118,16 @@ $(function(){
             reloadEmbedContent(link);
         }
     });
+
+
+    //Show icon images based on content
+    function loadIconsForLinks() {
+        $('#messages').children().each(function(){
+            var link = this.attr('title');
+            var classForType = iconClassForLink(link);
+            this.prepend('<span class="fa ' + classForType + '"></span>');
+        });
+    }
+    loadIconsForLinks();
+
 });
