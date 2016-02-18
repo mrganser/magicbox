@@ -59,7 +59,7 @@ $(function(){
     }
 
     function iconClassForLink(link){
-        var classForType = 'fa-arrow-right';  //Default
+        var classForType = 'fa-times';  //Default (probably error)
         _.forEach(_.values(acceptedTypesOfContent), function(typeObject) {
             if (typeObject.regex.test(link)) {
                 classForType = typeObject.icon;
@@ -126,7 +126,7 @@ $(function(){
             var aElement = $(this).children('a');
             var link = aElement.attr('title');
             var classForType = iconClassForLink(link);
-            aElement.prepend('<span class="fa ' + classForType + '"></span>');
+            aElement.prepend('<span class="fa ' + classForType + '"></span> ');
         });
     }
     loadIconsForLinks();
