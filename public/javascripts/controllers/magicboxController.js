@@ -123,9 +123,10 @@ $(function(){
     //Show icon images based on content
     function loadIconsForLinks() {
         $('#messages').children().each(function(){
-            var link = this.attr('title');
+            var aElement = $(this).children('a');
+            var link = aElement.attr('title');
             var classForType = iconClassForLink(link);
-            this.prepend('<span class="fa ' + classForType + '"></span>');
+            aElement.prepend('<span class="fa ' + classForType + '"></span>');
         });
     }
     loadIconsForLinks();
