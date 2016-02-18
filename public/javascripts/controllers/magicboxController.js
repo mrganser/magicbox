@@ -3,16 +3,36 @@ var socket = io();
 $(function(){
     var regexYoutube = /https?:\/\/(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube(?:-nocookie)?\.com\S*[^\w\s-])([\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|<\/a>))[?=&+%\w.-]*/ig;
     
+    var acceptedTypesOfContent [
+        /\.(webm|pdf|gif|jpg|jpeg|png)$/i,
+        regexYoutube,
+        /^https:\/\/docs.google.com/i
+    ];
+
+    function checkCompatibility(link){
+        return _.some(acceptedTypesOfContent, function(regexp){
+            return regexp.test(link);
+        };
+    }
+
+    function isYoutube(link) {
+        return _.startsWith(link, 'https://www.youtube.com/embed/');
+    }
+
+    function checkForIframe(link){
+        return isYoutube(link) || _.endsWith(link, '.webm');
+    }
+
     function reloadEmbedContent(link){
         var magicboxobject = $('#magicboxobject').clone();
         var magicboxiframe = $('#magicboxiframe').clone();
-        //Uses iframe for youtube videos and object for the rest of media
-        if (_.startsWith(link, 'https://www.youtube.com/embed/') || _.endsWith(link, '.webm')){
+        //Uses iframe for youtube videos // webm and object for the rest of media
+        if (checkForIframe(link)){
             magicboxiframe.attr('src', link);
             magicboxiframe.css('visibility', 'visible');
             magicboxobject.attr('data', '');
             magicboxobject.css('visibility', 'hidden');
-        } else{
+        } else {
             magicboxobject.attr('data', link);
             magicboxobject.css('visibility', 'visible');
             magicboxiframe.attr('src', '');
@@ -23,7 +43,7 @@ $(function(){
         $("#magicboxobjectwrapper").append(magicboxobject);   
         $("#magicboxobjectwrapper").append(magicboxiframe);
         //Reload Youtube's API
-        if (_.startsWith(link, 'https://www.youtube.com/embed/')){
+        if (isYoutube(link)){
             onYouTubeIframeAPIReady();
         }
         //Color selected links
@@ -47,11 +67,10 @@ $(function(){
 
     $('#sharelink').click(function(){
         var link = $('#sharedlink').val();
-        if (link && (_.endsWith(link, '.pdf') || _.endsWith(link, '.jpg') || _.endsWith(link, '.webm') || _.endsWith(link, '.jpeg') || _.endsWith(link, '.png') || _.endsWith(link, '.gif')  //Media
-                 || _.startsWith(link, 'https://docs.google.com') //Google docs
-                 || link.match(regexYoutube))) {  //Youtube
-            
-            link = link.replace(regexYoutube, 'https://www.youtube.com/embed/$1?enablejsapi=1');  //Transform YouTube's link to correct embed link
+        if (checkCompatibility(link)) { 
+            //Transform YouTube's link to correct embed link
+            link = link.replace(regexYoutube, 'https://www.youtube.com/embed/$1?enablejsapi=1');
+
             socket.emit('linkshared', LOCAL_CHANNEL, SECRET, link);
 
             $('#sharedlink').val('');
