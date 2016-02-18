@@ -12,7 +12,7 @@ $(function(){
     function checkCompatibility(link){
         return _.some(acceptedTypesOfContent, function(regexp){
             return regexp.test(link);
-        };
+        });
     }
 
     function isYoutube(link) {
