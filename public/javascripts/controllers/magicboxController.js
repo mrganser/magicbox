@@ -9,7 +9,7 @@ $(function(){
         webm: { regex: /^https?:\/\/.*\.webm$/i, icon: 'fa fa-film' },
         youtube: { regex: regexYoutube, icon: 'fa fa-youtube-play' },
         docs: { regex: /^https:\/\/docs.google.com/i, icon: 'fa fa-file-text' },
-        spotify: { regex: /^https:\/\/embed.spotify.com/i, icon: 'fa fa-music' }        
+        spotify: { regex: /spotify:/i, icon: 'fa fa-music' }        
     };
 
     function checkCompatibility(link){
@@ -81,7 +81,7 @@ $(function(){
 
     function convertLinkToEmbed(link){
         link = link.replace(regexYoutube, 'https://www.youtube.com/embed/$1?enablejsapi=1');
-        link = link.replace(/^spotify:/i, 'https://embed.spotify.com/?uri=spotify:');
+        link = link.replace(acceptedTypesOfContent.spotify.regex, 'https://embed.spotify.com/?uri=spotify:');
         return link;
     }
 
