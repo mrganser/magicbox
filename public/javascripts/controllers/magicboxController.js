@@ -81,7 +81,7 @@ $(function(){
 
     function convertLinkToEmbed(link){
         link = link.replace(regexYoutube, 'https://www.youtube.com/embed/$1?enablejsapi=1');
-        link = link.replace(acceptedTypesOfContent.spotify.regex, 'https://embed.spotify.com/?uri=spotify:track:');
+        link = link.replace(/^spotify:/i, 'https://embed.spotify.com/?uri=spotify:');
         return link;
     }
 
