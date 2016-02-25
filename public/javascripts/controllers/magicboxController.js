@@ -4,11 +4,12 @@ $(function(){
     var regexYoutube = /https?:\/\/(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube(?:-nocookie)?\.com\S*[^\w\s-])([\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|<\/a>))[?=&+%\w.-]*/i;
     
     var acceptedTypesOfContent = {
-        img: { regex: /^https?:\/\/.*\.(webm|pdf|gif|jpg|jpeg|png)$/i, icon: 'fa-file-image-o' },
-        pdf: { regex: /^https?:\/\/.*\.pdf$/i, icon: 'fa-file-pdf-o' },
-        webm: { regex: /^https?:\/\/.*\.webm$/i, icon: 'fa-film' },
-        youtube: { regex: regexYoutube, icon: 'fa-youtube-play' },
-        docs: { regex: /^https:\/\/docs.google.com/i, icon: 'fa-file-text' }        
+        img: { regex: /^https?:\/\/.*\.(webm|pdf|gif|jpg|jpeg|png)$/i, icon: 'fa fa-file-image-o' },
+        pdf: { regex: /^https?:\/\/.*\.pdf$/i, icon: 'fa fa-file-pdf-o' },
+        webm: { regex: /^https?:\/\/.*\.webm$/i, icon: 'fa fa-film' },
+        youtube: { regex: regexYoutube, icon: 'fa fa-youtube-play' },
+        docs: { regex: /^https:\/\/docs.google.com/i, icon: 'fa fa-file-text' },
+        spotify: { regex: /^https:\/\/embed.spotify.com/i, icon: 'fa fa-music' }        
     };
 
     function checkCompatibility(link){
@@ -22,7 +23,7 @@ $(function(){
     }
 
     function checkForIframe(link){
-        return isYoutube(link) || _.endsWith(link, '.webm');
+        return isYoutube(link) || _.endsWith(link, '.webm') || _.startsWith(link, 'https://embed.spotify.com/?uri=');
     }
 
     function reloadEmbedContent(link){
@@ -59,7 +60,7 @@ $(function(){
     }
 
     function iconClassForLink(link){
-        var classForType = 'fa-times';  //Default (probably error)
+        var classForType = 'fa fa-times';  //Default (probably error)
         _.forEach(_.values(acceptedTypesOfContent), function(typeObject) {
             if (typeObject.regex.test(link)) {
                 classForType = typeObject.icon;
@@ -70,7 +71,7 @@ $(function(){
 
     function loadLinkOnHistoric(link, date){
         var classForType = iconClassForLink(link);
-        $('#messages').append('<li><span class="fa ' + classForType + '"></span> <a onclick="loadPastLink(\'' + link + '\')" title="' + link + '">' + moment(date).format('DD/MM/YYYY HH:mm') + '</a></li>');
+        $('#messages').append('<li><span class="' + classForType + '"></span> <a onclick="loadPastLink(\'' + link + '\')" title="' + link + '">' + moment(date).format('DD/MM/YYYY HH:mm') + '</a></li>');
     }
 
     function playAudio(){
@@ -78,11 +79,17 @@ $(function(){
         audio.play();
     }
 
+    function convertLinkToEmbed(link){
+        link = link.replace(regexYoutube, 'https://www.youtube.com/embed/$1?enablejsapi=1');
+        link = link.replace(acceptedTypesOfContent.spotify.regex, 'https://embed.spotify.com/?uri=spotify:track:');
+        return link;
+    }
+
     $('#sharelink').click(function(){
         var link = $('#sharedlink').val();
         if (checkCompatibility(link)) { 
-            //Transform YouTube's link to correct embed link
-            link = link.replace(regexYoutube, 'https://www.youtube.com/embed/$1?enablejsapi=1');
+
+            link = convertLinkToEmbed(link);
 
             socket.emit('linkshared', LOCAL_CHANNEL, SECRET, link);
 
@@ -126,7 +133,7 @@ $(function(){
             var aElement = $(this).children('a');
             var link = aElement.attr('title');
             var classForType = iconClassForLink(link);
-            aElement.prepend('<span class="fa ' + classForType + '"></span> ');
+            aElement.prepend('<span class="' + classForType + '"></span> ');
         });
     }
     loadIconsForLinks();
