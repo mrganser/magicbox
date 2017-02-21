@@ -1,51 +1,51 @@
 extends layout
 
 block content
-    #magicbox.container-fluid
+  #magicbox.container-fluid
+    .row
+      .col-md-10
         .row
-            .col-md-10
-                .row
-                    .col-md-12
-                        #magicboxheader1
-                            h2 #{channel} - Magic Box
-                            script(type='text/javascript') var LOCAL_CHANNEL =!{JSON.stringify(channel)}
-                            script(type='text/javascript') var SECRET =!{JSON.stringify(secret)}
-                .row
-                    .col-md-12
-                        #magicboxobjectwrapper
-                            - if (links && links.length > 0)
-                                - if (links[links.length - 1].link.indexOf('https://www.youtube.com/embed/') >= 0  || links[links.length - 1].link.indexOf('https://embed.spotify.com/?uri=spotify:track:') >= 0  || links[links.length - 1].link.indexOf('.webm', links[links.length - 1].link.length - '.webm'.length) !== -1)
-                                    object#magicboxobject(style="visibility: hidden;")
-                                    iframe#magicboxiframe(src="#{links[links.length - 1].link}" frameborder="0" allowfullscreen)
-                                -else
-                                    object#magicboxobject(data="#{links[links.length - 1].link}")
-                                    iframe#magicboxiframe(src="" frameborder="0" allowfullscreen style="visibility: hidden;")
-                            - else
-                                object#magicboxobject(style="visibility: hidden;")
-                                iframe#magicboxiframe(src="" frameborder="0" allowfullscreen style="visibility: hidden;")
-            .col-md-2
-                .row
-                    .col-md-12.text-center
-                        #magicboxheader2
-                            h2 Last links
-
-                .row
-                    #magicboxhistoric.col-md-12.text-center
-                        ul#messages
-                            - each link in links
-                                li 
-                                    a(onclick="loadPastLink('" + link.link + "')" title="#{link.link}") #{moment(new Date(link.date)).format("DD/MM/YYYY HH:mm")}       
-        #magicboxform.row
-            .input-group
-                input#sharedlink.form-control(required='required', placeholder='Insert the link you want to share...', autocomplete='off', onkeydown='clickSend(event)')
-                span.input-group-btn
-                    button#sharelink.btn.btn-success(type='button') Share
-                #invalidLink.alert.alert-danger.input-group-addon(style='padding: 6px 12px; margin-bottom: 0px; display: none;', role='alert')
-                    span.glyphicon.glyphicon-exclamation-sign(aria-hidden='true')
-                #correctLink.alert.alert-success.input-group-addon(style='padding: 6px 12px; margin-bottom: 0px; display: none;', role='alert')
-                    span.glyphicon.glyphicon-ok-sign(aria-hidden='true')
-    script(src='/socket.io/socket.io.js')
-    script(src='/thirdparty/moment/moment.js')
-    script(src='/thirdparty/lodash/lodash.min.js')
-    script(src='/javascripts/controllers/magicboxController.js')
-    script(src='/javascripts/youtubesync.js')
+          .col-md-12
+            #magicboxheader1
+              h2 #{channel} - Magic Box
+              script(type='text/javascript') var LOCAL_CHANNEL =!{JSON.stringify(channel)}
+              script(type='text/javascript') var SECRET =!{JSON.stringify(secret)}
+        .row
+          .col-md-12
+            #magicboxobjectwrapper
+              - if (links && links.length > 0)
+                - var link = links[links.length - 1].link;
+                - if (link.indexOf('https://www.youtube.com/embed/') >= 0 || link.indexOf('https://embed.spotify.com/?uri=spotify:track:') >= 0 || link.indexOf('.webm', link.length - '.webm'.length) !== -1)
+                    object#magicboxobject(style="visibility: hidden;")
+                    iframe#magicboxiframe(frameborder="0" allowfullscreen src=link)
+                - else
+                    object#magicboxobject(data=link)
+                    iframe#magicboxiframe(frameborder="0" allowfullscreen style="visibility: hidden;" src="")
+              - else
+                  object#magicboxobject(style="visibility: hidden;")
+                  iframe#magicboxiframe(frameborder="0" allowfullscreen style="visibility: hidden;" src="")
+      .col-md-2
+        .row
+          .col-md-12.text-center
+            #magicboxheader2
+              h2 Last links
+        .row
+          #magicboxhistoric.col-md-12.text-center
+            ul#messages
+              each link in links
+                li 
+                  a(onclick="loadPastLink('" + link.link + "')" title=link.link) #{moment(new Date(link.date)).format("DD/MM/YYYY HH:mm")}       
+    #magicboxform.row
+      .input-group
+        input#sharedlink.form-control(required='required', placeholder='Insert the link you want to share...', autocomplete='off', onkeydown='clickSend(event)')
+        span.input-group-btn
+          button#sharelink.btn.btn-success(type='button') Share
+        #invalidLink.alert.alert-danger.input-group-addon(style='padding: 6px 12px; margin-bottom: 0px; display: none;', role='alert')
+          span.glyphicon.glyphicon-exclamation-sign(aria-hidden='true')
+        #correctLink.alert.alert-success.input-group-addon(style='padding: 6px 12px; margin-bottom: 0px; display: none;', role='alert')
+          span.glyphicon.glyphicon-ok-sign(aria-hidden='true')
+  script(src='/socket.io/socket.io.js')
+  script(src='/thirdparty/moment/moment.js')
+  script(src='/thirdparty/lodash/lodash.min.js')
+  script(src='/javascripts/controllers/magicboxController.js')
+  script(src='/javascripts/youtubesync.js')
