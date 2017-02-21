@@ -3,11 +3,11 @@ var config = {
         listenPort: 8080
     },
     mongoDatabase: {
-        host: 'host',
-        port: 'port',
-        database: 'database',
-        user: 'user',
-        password: 'password'
+        host: 'ds063150.mongolab.com',
+        port: '63150',
+        database: 'heroku_app32520460',
+        user: 'magicbox',
+        password: 'pNw8bRkd3TV2s$uB'
     }
 }
 
