@@ -1,3 +1,3 @@
-A web project for using websockets and WebRTC
+A web for sharing embedded content
 
-heroku local web for deploying to localhost:5000
+heroku local web for running app locally

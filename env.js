@@ -6,15 +6,20 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var MongoClient = require('mongodb').MongoClient;
+var config = require('./config');
 
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io').listen(server);
 
 var db = null;
-var MONGO_DB_URL = 'mongodb://admin:magicbox@ds063150.mongolab.com:63150/heroku_app32520460';
+var MONGO_DB_URL = 'mongodb://' + config.mongoDatabase.user 
+                                + ':' + config.mongoDatabase.password 
+                                + '@' + config.mongoDatabase.host 
+                                + ':' + config.mongoDatabase.port 
+                                + '/' + config.mongoDatabase.database;
 var APP_HOST = 'localhost'; 
-var APP_PORT = process.env.PORT || 5000;
+var APP_PORT = process.env.PORT || config.http.listenPort;
 
 var index = require('./routes/index');
 var channels = require('./routes/channels');
@@ -103,7 +108,7 @@ var channels = require('./routes/channels');
         }
 
         // Print out a message to the console
-        console.log('Server started');
+        console.log('Server started at port ' + APP_PORT);
 
         // Return successful start of server
         callback(null);

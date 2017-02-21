@@ -13,8 +13,8 @@
    height="52.098434"
    id="svg2985"
    version="1.1"
-   inkscape:version="0.48.5 r10040"
-   sodipodi:docname="magixbox.svg"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="magicbox.svg"
    inkscape:export-filename="D:\mrganser\magicbox\public\images\magixbox.png"
    inkscape:export-xdpi="69.118225"
    inkscape:export-ydpi="69.118225">
@@ -61,7 +61,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -72,7 +72,7 @@
      transform="translate(-111.24999,-3.4282559)">
     <text
        xml:space="preserve"
-       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Sans"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Sans;"
        x="111.24999"
        y="44.583332"
        id="text2993"
@@ -81,8 +81,8 @@
          id="tspan2995"
          x="111.24999"
          y="44.583332"
-         style="font-size:64px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;letter-spacing:4px;fill:#ffffff;font-family:FORCED SQUARE;-inkscape-font-specification:FORCED SQUARE">magic<tspan
-   style="letter-spacing:41.70000076px;fill:#ffffff"
+         style="font-size:64px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;letter-spacing:4px;fill:#ffffff;font-family:FORCED SQUARE;-inkscape-font-specification:FORCED SQUARE;">magic<tspan
+   style="letter-spacing:41.70000076px;fill:#ffffff;"
    id="tspan3039">bx</tspan></tspan></text>
     <path
        d="m 321.29774,19.944104 14.03148,4.550416 v 20.021915 l -13.94028,-4.745106 m 17.39941,4.810702 14.08027,-4.810702 V 20.074597 l -14.03394,4.35503 m -1.76517,-2.27521 12.88196,-4.19086 -12.88196,-3.900058 -13.17804,3.900058"
