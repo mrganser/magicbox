@@ -21,21 +21,21 @@ router.post('/newchannel', function(req, res) {
 	if (captcha){
 		verifyRecaptcha(captcha, function(success) {
             if (success) {
-			    if (channelname){
+			    if (channelname.trim()){
                     if (secret){
                         res.redirect('/channels/' + channelname + '/private');
-                    } else{
+                    } else {
                         res.redirect('/channels/' + channelname);
                     }
 				} else {
-			    	res.render('newchannel', {title: 'Creating new channel', error: "Invalid channel's name"});	
+			    	res.render('newchannel', {title: 'Creating new channel', error: 'Invalid name of the channel'});	
 				}
             } else {
-				res.render('newchannel', {title: 'Creating new channel', error: "Captcha failed!"});
+				res.render('newchannel', {title: 'Creating new channel', error: 'Captcha confirmation failed'});
             }
         });
 	} else {
-    	res.render('newchannel', {title: 'Creating new channel', error: "Check the captcha before"});
+    	res.render('newchannel', {title: 'Creating new channel', error: 'Make sure you confirm the captcha'});
 	}
 });
 

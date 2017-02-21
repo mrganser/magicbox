@@ -1,34 +1,30 @@
 extends layout
 
 block content
-    .jumbotron
-      .container
-        h1 Welcome to your Magic Box!
-        p
-          | Here you can share your favourite media links with your friends in your own channel.
-        p
-          a.btn.btn-primary.btn-lg(href='/channels', role='button') Go to Channel List! &raquo;
+  .jumbotron
     .container
-      .row
-        .col-md-4.text-center
-          h2 Create your personal channel
-          p
-            | It can be secret or public.
-          p
-            span(aria-hidden='true').fa.fa-list.fa-5x
-        .col-md-4.text-center
-          h2 Share a link of media that you want
-          p
-            | Youtube videos, photos, gifs, google docs...
-          p
-            span(aria-hidden='true').fa.fa-slideshare.fa-5x
-        .col-md-4.text-center
-          h2 Always on sync with all the viewers
-          p
-            | You can even watch videos together!
-          p
-            span(aria-hidden='true').fa.fa-refresh.fa-5x
-      hr
-      footer
-        p 
-            a(href='http://mrganser.com/', target='_blank') &copy;mrganser
+      h1 Welcome to your Magic Box!
+      p Here you can share your favourite media links with your friends in your own channel.
+      p
+        a.btn.btn-primary.btn-lg(href='/channels', role='button') Go to Channel List! &raquo;
+  .container
+    .row
+      .col-md-4.text-center
+        h2 Create your personal channel
+        p It can be secret or public.
+        p
+          span(aria-hidden='true').fa.fa-list.fa-5x
+      .col-md-4.text-center
+        h2 Share a link of media that you want
+        p Youtube videos, photos, gifs, google docs...
+        p
+          span(aria-hidden='true').fa.fa-slideshare.fa-5x
+      .col-md-4.text-center
+        h2 Always on sync with all the viewers
+        p You can even watch videos together!
+        p
+          span(aria-hidden='true').fa.fa-refresh.fa-5x
+    hr
+    footer
+      p 
+        a(href='http://mrganser.com/', target='_blank') &copy;mrganser
