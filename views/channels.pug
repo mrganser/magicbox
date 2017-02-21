@@ -5,8 +5,8 @@ block content
         h1 Channels
         if channels == 0
           span There are currently no channels available.
-        .list-group
-          - each channel in channels            
+          .list-group
+             each channel in channels            
               a.list-group-item(href="/channels/" + channel)
                   h4.list-group-item-heading #{channel}'s channel
-        a.btn.btn-success.btn-lg(href="/newchannel", role="button") Create new channel
+                  a.btn.btn-success.btn-lg(href="/newchannel", role="button") Create new channel
