@@ -3,11 +3,11 @@ var config = {
         listenPort: 8080
     },
     mongoDatabase: {
-        host: 'host',
-        port: 'port',
-        database: 'database',
-        user: 'user',
-        password: 'password'
+        host: 'yourHost',
+        port: 'yourPort',
+        database: 'yourDatabase',
+        user: 'yourUser',
+        password: 'yourPassword'
     }
 }
 
