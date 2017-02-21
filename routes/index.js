@@ -24,11 +24,11 @@ router.post('/newchannel', function(req, res) {
 			    if (channelname.trim()){
                     if (secret){
                         res.redirect('/channels/' + channelname + '/private');
-                    } else{
+                    } else {
                         res.redirect('/channels/' + channelname);
                     }
 				} else {
-			    	res.render('newchannel', {title: 'Creating new channel', error: 'Invalid channel\'s name'});	
+			    	res.render('newchannel', {title: 'Creating new channel', error: 'Invalid name of the channel'});	
 				}
             } else {
 				res.render('newchannel', {title: 'Creating new channel', error: 'Captcha confirmation failed'});
