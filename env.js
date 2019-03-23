@@ -89,11 +89,11 @@ var channels = require('./routes/channels');
     /**
      * Connect to MongoDB and start the server
      */
-     MongoClient.connect(MONGO_DB_URL, function(err, _db) {
+     MongoClient.connect(MONGO_DB_URL, { useNewUrlParser: true } , function(err, client) {
         if(err) return callback(err);
 
         // Save the db reference
-        db = _db;
+        db = client.db();
 
         // Return the callback
         callback(null, app, io, db);
