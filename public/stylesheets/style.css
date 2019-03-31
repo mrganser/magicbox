@@ -12,6 +12,18 @@ body {
   padding-bottom: 20px;
 }
 
+/* Hide Google Captcha */
+.grecaptcha-badge {
+    visibility: hidden;
+}
+.captcha-text {
+    display: block;
+    margin-top: 20px;
+    font-size: 75%;
+    line-height: 1.5;
+    font-style: italic;
+    text-align: right;
+}
 
 /* Magic box */
 #magicbox {
