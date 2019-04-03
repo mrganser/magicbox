@@ -4,12 +4,12 @@ $(function() {
   var regexYoutube = /https?:\/\/(?:[0-9A-Z-]+\.)?(?:youtu\.be\/|youtube(?:-nocookie)?\.com\S*[^\w\s-])([\w-]{11})(?=[^\w-]|$)(?![?=&+%\w.-]*(?:['"][^<>]*>|<\/a>))[?=&+%\w.-]*/i;
 
   var acceptedTypesOfContent = {
-    img: { regex: /^https?:\/\/.*\.(webm|pdf|gif|jpg|jpeg|png)$/i, icon: "fa fa-file-image-o" },
-    pdf: { regex: /^https?:\/\/.*\.pdf$/i, icon: "fa fa-file-pdf-o" },
-    webm: { regex: /^https?:\/\/.*\.webm$/i, icon: "fa fa-film" },
-    youtube: { regex: regexYoutube, icon: "fa fa-youtube-play" },
-    docs: { regex: /^https:\/\/docs.google.com/i, icon: "fa fa-file-text" },
-    spotify: { regex: /spotify:/i, icon: "fa fa-music" }
+    img: { regex: /^https?:\/\/.*\.(pdf|gif|jpg|jpeg|png)$/i, icon: "fas fa-image" },
+    pdf: { regex: /^https?:\/\/.*\.pdf$/i, icon: "fas fa-file-pdf" },
+    webm: { regex: /^https?:\/\/.*\.webm$/i, icon: "fas fa-film" },
+    youtube: { regex: regexYoutube, icon: "fab fa-youtube" },
+    docs: { regex: /^https:\/\/docs.google.com/i, icon: "fas fa-file-alt" },
+    spotify: { regex: /spotify:/i, icon: "fas fa-music" }
   };
 
   function checkCompatibility(link) {
