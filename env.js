@@ -40,6 +40,7 @@ var initialize = function(callback) {
     req.io = io;
     next();
   });
+
   /*Moment*/
   app.locals.moment = require("moment");
 
