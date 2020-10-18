@@ -1,9 +1,9 @@
-var ChannelsController = function() {};
+var ChannelsController = function () {};
 
-ChannelsController.prototype.findAll = function(db, callback) {
-  var collection = db.collection("sharedlinks");
+ChannelsController.prototype.findAll = function (db, callback) {
+  var collection = db.collection('sharedlinks');
 
-  collection.distinct("channel", { secret: false }, function(err, result) {
+  collection.distinct('channel', { secret: false }, function (err, result) {
     if (err) {
       console.log(err);
       callback(err, []);

@@ -1,21 +1,21 @@
 //Enables bootstrap tooltips
-$(function() {
+$(function () {
   $("[data-toggle='tooltip']").tooltip();
 });
 
 function setVisibility(visibility) {
-  document.getElementById("secret").value = visibility;
+  document.getElementById('secret').value = visibility;
   return true;
 }
 
 function clickSend(event) {
-  if (event.keyCode == 13) document.getElementById("sharelink").click();
+  if (event.keyCode == 13) document.getElementById('sharelink').click();
 }
 
-$(function() {
-  $("#sharedlink").on("paste", function() {
-    setTimeout(function() {
-      document.getElementById("sharelink").click();
+$(function () {
+  $('#sharedlink').on('paste', function () {
+    setTimeout(function () {
+      document.getElementById('sharelink').click();
     }, 100);
   });
 });
