@@ -6,16 +6,15 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var MongoClient = require('mongodb').MongoClient;
-var config = require('./config');
 
 var app = express();
 var server = require('http').Server(app);
 var io = require('socket.io').listen(server);
 
 var db = null;
-var MONGO_DB_URL = config.mongoDatabase.uri;
+var MONGO_DB_URL = process.env.MONGO_URI;
 var APP_HOST = 'localhost';
-var APP_PORT = process.env.PORT || config.http.listenPort;
+var APP_PORT = process.env.PORT || 8080;
 
 var index = require('./routes/index');
 var channels = require('./routes/channels');

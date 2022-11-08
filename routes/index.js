@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 var https = require('https');
 var sharedLinksController = require('../controllers/SharedLinksController');
-var config = require('../config');
 
 /* GET home page. */
 router.get('/', function (req, res) {
@@ -43,7 +42,7 @@ router.post('/newchannel', function (req, res) {
 // Helper function to make API call to recatpcha and check response
 function verifyRecaptcha(key, callback) {
   https.get(
-    'https://www.google.com/recaptcha/api/siteverify?secret=' + config.recaptcha.secret + '&response=' + key,
+    'https://www.google.com/recaptcha/api/siteverify?secret=' + process.env.RECAPTCHA_SECRET + '&response=' + key,
     function (res) {
       var data = '';
       res.on('data', function (chunk) {
