@@ -1,28 +1,28 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
 
-var MongoClient = require('mongodb').MongoClient;
+const { MongoClient } = require('mongodb');
 
-var app = express();
-var server = require('http').Server(app);
-var io = require('socket.io').listen(server);
+const app = express();
+const server = require('http').Server(app);
+const io = require('socket.io').listen(server);
 
-var db = null;
-var MONGO_DB_URL = process.env.MONGO_URI;
-var APP_HOST = 'localhost';
-var APP_PORT = process.env.PORT || 8080;
+let db = null;
+let client = null;
+const MONGO_DB_URL = process.env.MONGO_URI;
+const APP_PORT = process.env.PORT || 8080;
 
-var index = require('./routes/index');
-var channels = require('./routes/channels');
+const index = require('./routes/index');
+const channels = require('./routes/channels');
 
 /**
  * Set up the environment for the application
  */
-var initialize = function (callback) {
+const initialize = async function () {
   /*Pass db and io to routes*/
   app.use(function (req, res, next) {
     req.db = db;
@@ -53,7 +53,7 @@ var initialize = function (callback) {
 
   // catch 404 and forward to error handler
   app.use(function (req, res, next) {
-    var err = new Error('Not Found');
+    const err = new Error('Not Found');
     err.status = 404;
     next(err);
   });
@@ -83,31 +83,29 @@ var initialize = function (callback) {
   });
 
   /**
-   * Connect to MongoDB and start the server
+   * Connect to MongoDB
    */
-  MongoClient.connect(MONGO_DB_URL, { useNewUrlParser: true }, function (err, client) {
-    if (err) return callback(err);
+  client = new MongoClient(MONGO_DB_URL);
+  await client.connect();
+  db = client.db();
 
-    // Save the db reference
-    db = client.db();
-
-    // Return the callback
-    callback(null, app, io, db);
-  });
+  return { app, io, db };
 };
 
-var run = function (callback) {
-  server.listen(APP_PORT, function (err) {
-    if (err) {
-      db.close();
-      return callback(err);
-    }
+const run = function () {
+  return new Promise((resolve, reject) => {
+    server.listen(APP_PORT, function (err) {
+      if (err) {
+        client.close();
+        return reject(err);
+      }
 
-    // Print out a message to the console
-    console.log('Server started at port ' + APP_PORT);
+      // Print out a message to the console
+      console.log('Server started at port ' + APP_PORT);
 
-    // Return successful start of server
-    callback(null);
+      // Return successful start of server
+      resolve();
+    });
   });
 };
 

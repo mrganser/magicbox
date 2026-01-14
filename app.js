@@ -1,9 +1,9 @@
-var env = require('./env');
+const env = require('./env');
 
-var sharedLinksController = require('./controllers/SharedLinksController');
+const sharedLinksController = require('./controllers/SharedLinksController');
 
-env.initialize(function (err, app, io, db) {
-  if (err) throw err;
+(async () => {
+  const { app, io, db } = await env.initialize();
 
   // Websocket api
   io.sockets.on('connection', function (socket) {
@@ -22,7 +22,5 @@ env.initialize(function (err, app, io, db) {
   });
 
   // Run the server
-  env.run(function (err) {
-    if (err) throw err;
-  });
-});
+  await env.run();
+})();

@@ -1,16 +1,8 @@
-var ChannelsController = function () {};
+const ChannelsController = function () { };
 
-ChannelsController.prototype.findAll = function (db, callback) {
-  var collection = db.collection('sharedlinks');
-
-  collection.distinct('channel', { secret: false }, function (err, result) {
-    if (err) {
-      console.log(err);
-      callback(err, []);
-    } else {
-      callback(null, result);
-    }
-  });
+ChannelsController.prototype.findAll = async function (db) {
+  const collection = db.collection('sharedlinks');
+  return collection.distinct('channel', { secret: false });
 };
 
 module.exports = new ChannelsController();
