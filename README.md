@@ -14,11 +14,11 @@ https://themagicbox.onrender.com/
 
 ```
   "engines": {
-    "node": ">=10"
+    "node": ">=18"
   }
 ```
 
-### Installing
+### Usage
 
 - Clone the project
 
@@ -26,9 +26,11 @@ https://themagicbox.onrender.com/
 
   `npm install`
 
-- Start command, start server @ localhost:5000 by default:
+- Set up your .env file based on the .env.example file
 
-  `npm start`
+- Start server in watch mode @ localhost:8080:
+
+  `npm run dev`
 
 ## Running the tests
 

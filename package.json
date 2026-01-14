@@ -1,9 +1,9 @@
 {
   "name": "magicbox",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "author": "mrganser",
   "private": true,
-  "license": "Copyright 2014 @mrganser",
+  "license": "MIT",
   "scripts": {
     "start": "node app.js",
     "dev": "node --watch --env-file=.env app.js"
