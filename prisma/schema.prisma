@@ -1,0 +1,19 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model SharedLink {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  channel   String
+  secret    Boolean  @default(false)
+  link      String
+  createdAt DateTime @default(now()) @map("date")
+
+  @@index([channel, secret])
+  @@map("sharedlinks")
+}
