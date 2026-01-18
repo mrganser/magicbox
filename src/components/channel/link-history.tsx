@@ -31,6 +31,15 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   X,
 };
 
+const colorMap: Record<string, string> = {
+  Youtube: 'text-red-400',
+  Music: 'text-green-400',
+  FileText: 'text-cyan-400',
+  Image: 'text-amber-400',
+  Film: 'text-violet-400',
+  Link: 'text-stone-400',
+};
+
 export function LinkHistory({
   links,
   currentLink,
@@ -38,42 +47,67 @@ export function LinkHistory({
 }: LinkHistoryProps) {
   if (links.length === 0) {
     return (
-      <div className="flex-1 flex items-center justify-center text-slate-500 p-4 text-center">
-        <p>No links shared yet</p>
+      <div className="flex-1 flex items-center justify-center p-6 text-center">
+        <div>
+          <div className="w-12 h-12 rounded-xl bg-linear-to-br from-teal-500/10 to-violet-500/5 border border-white/5 flex items-center justify-center mx-auto mb-4">
+            <LinkIcon className="w-5 h-5 text-stone-500" />
+          </div>
+          <p className="text-stone-500 text-sm">No links shared yet</p>
+          <p className="text-stone-600 text-xs mt-1">Share something to get started</p>
+        </div>
       </div>
     );
   }
 
   return (
     <ScrollArea className="flex-1">
-      <ul className="space-y-1 p-2">
+      <ul className="p-2 space-y-1">
         {links.map((item) => {
           const mediaType = getMediaType(item.link);
           const IconComponent = iconMap[mediaType.icon] || LinkIcon;
+          const iconColor = colorMap[mediaType.icon] || 'text-stone-400';
           const isActive = item.link === currentLink;
 
           return (
             <li
               key={item.id}
               className={cn(
-                'px-3 py-2.5 rounded-lg cursor-pointer transition-all',
-                'hover:bg-slate-800',
-                isActive && 'bg-violet-500/20 border border-violet-500/30'
+                'px-3 py-3 rounded-xl cursor-pointer transition-all duration-300',
+                'hover:bg-white/3',
+                isActive && 'bg-teal-500/10 border border-teal-500/20 glow-soft'
               )}
               onClick={() => onLinkClick(item.link)}
             >
-              <div className="flex items-center gap-2 text-slate-200 text-sm">
-                <IconComponent className={cn(
-                  "w-4 h-4 flex-shrink-0",
-                  isActive ? "text-violet-400" : "text-slate-400"
-                )} />
-                <span className="truncate">
-                  {format(new Date(item.createdAt), 'dd/MM/yyyy HH:mm')}
-                </span>
+              <div className="flex items-center gap-3">
+                <div
+                  className={cn(
+                    'w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-colors',
+                    isActive
+                      ? 'bg-teal-500/20 border border-teal-500/30'
+                      : 'bg-white/3 border border-white/5'
+                  )}
+                >
+                  <IconComponent
+                    className={cn(
+                      'w-4 h-4',
+                      isActive ? 'text-teal-400' : iconColor
+                    )}
+                  />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p
+                    className={cn(
+                      'text-sm font-medium truncate transition-colors',
+                      isActive ? 'text-teal-200' : 'text-stone-300'
+                    )}
+                  >
+                    {mediaType.type}
+                  </p>
+                  <p className="text-xs text-stone-600 truncate">
+                    {format(new Date(item.createdAt), 'MMM d, HH:mm')}
+                  </p>
+                </div>
               </div>
-              <p className="text-xs text-slate-500 truncate mt-1 pl-6">
-                {mediaType.type}
-              </p>
             </li>
           );
         })}

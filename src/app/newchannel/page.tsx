@@ -6,7 +6,7 @@ export const metadata = {
 
 export default function NewChannelPage() {
   return (
-    <div className="min-h-[calc(100vh-3.5rem)] bg-slate-950 flex items-center">
+    <div className="min-h-[calc(100vh-3.5rem)] flex items-center relative">
       <div className="container mx-auto px-4 py-8">
         <NewChannelForm />
       </div>

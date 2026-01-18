@@ -1,11 +1,20 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { DM_Serif_Display, Outfit } from 'next/font/google';
 import { SocketProvider } from '@/contexts/socket-context';
 import { Navbar } from '@/components/layout/navbar';
 import Script from 'next/script';
 import './globals.css';
 
-const inter = Inter({ subsets: ['latin'] });
+const outfit = Outfit({
+  subsets: ['latin'],
+  variable: '--font-sans',
+});
+
+const dmSerif = DM_Serif_Display({
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-display',
+});
 
 export const metadata: Metadata = {
   title: 'Magic Box',
@@ -24,7 +33,7 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${outfit.variable} ${dmSerif.variable}`}>
         <SocketProvider>
           <Navbar />
           <main className="pt-14">{children}</main>

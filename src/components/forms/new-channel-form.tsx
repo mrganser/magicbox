@@ -2,12 +2,8 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { executeRecaptcha, verifyRecaptcha } from '@/lib/recaptcha';
-import { Globe, Lock, AlertCircle } from 'lucide-react';
+import { Globe, Lock, AlertCircle, Sparkles, Loader2 } from 'lucide-react';
 
 export function NewChannelForm() {
   const router = useRouter();
@@ -47,38 +43,57 @@ export function NewChannelForm() {
   };
 
   return (
-    <Card className="max-w-md mx-auto bg-slate-900/50 border-slate-800">
-      <CardHeader>
-        <CardTitle className="text-white">Create a New Channel</CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-4">
+    <div className="max-w-lg mx-auto">
+      {/* Ambient glow */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-teal-500/5 rounded-full blur-[100px]" />
+      </div>
+
+      <div className="glass rounded-3xl p-8 md:p-10 relative">
+        {/* Header */}
+        <div className="text-center mb-8">
+          <div className="w-16 h-16 rounded-2xl bg-linear-to-br from-teal-500/20 to-violet-500/10 border border-teal-500/20 flex items-center justify-center mx-auto mb-5">
+            <Sparkles className="w-8 h-8 text-teal-400" />
+          </div>
+          <h1 className="text-3xl font-display font-bold text-gradient-ethereal mb-2">
+            Create a Channel
+          </h1>
+          <p className="text-stone-500">
+            Open a new portal for shared experiences
+          </p>
+        </div>
+
+        {/* Error message */}
         {error && (
-          <Alert variant="destructive" className="bg-red-500/10 border-red-500/30 text-red-400">
-            <AlertCircle className="h-4 w-4" />
-            <AlertDescription>{error}</AlertDescription>
-          </Alert>
+          <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center gap-3">
+            <AlertCircle className="w-5 h-5 text-red-400 shrink-0" />
+            <p className="text-red-400 text-sm">{error}</p>
+          </div>
         )}
 
-        <div className="space-y-2">
-          <label htmlFor="channelname" className="text-sm font-medium text-slate-300">
+        {/* Input */}
+        <div className="mb-6">
+          <label htmlFor="channelname" className="block text-sm font-medium text-stone-400 mb-2">
             Channel Name
           </label>
-          <Input
+          <input
             id="channelname"
+            type="text"
             value={channelName}
             onChange={(e) => setChannelName(e.target.value)}
             placeholder="Enter a name for your channel"
             maxLength={50}
             disabled={isSubmitting}
-            className="bg-slate-800 border-slate-700 text-white placeholder:text-slate-500 focus:border-violet-500"
+            className="input-ethereal disabled:opacity-50 disabled:cursor-not-allowed"
           />
         </div>
 
-        <p className="text-xs text-slate-500">
+        {/* reCAPTCHA notice */}
+        <p className="text-xs text-stone-600 mb-6 leading-relaxed">
           This site is protected by reCAPTCHA and the Google{' '}
           <a
             href="https://policies.google.com/privacy"
-            className="underline hover:text-slate-300"
+            className="text-teal-500/70 hover:text-teal-400 transition-colors"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -87,7 +102,7 @@ export function NewChannelForm() {
           and{' '}
           <a
             href="https://policies.google.com/terms"
-            className="underline hover:text-slate-300"
+            className="text-teal-500/70 hover:text-teal-400 transition-colors"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -96,37 +111,46 @@ export function NewChannelForm() {
           apply.
         </p>
 
-        <div className="flex gap-3 pt-2">
-          <Button
+        {/* Buttons */}
+        <div className="flex gap-3">
+          <button
             type="button"
             onClick={() => handleSubmit(false)}
             disabled={isSubmitting}
-            className="flex-1 bg-gradient-to-r from-violet-600 to-pink-600 hover:from-violet-500 hover:to-pink-500 shadow-lg shadow-violet-500/20"
+            className="flex-1 btn-ethereal text-white flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
           >
-            <Globe className="h-4 w-4 mr-2" />
-            Public
-          </Button>
-          <Button
+            {isSubmitting ? (
+              <Loader2 className="w-4 h-4 animate-spin" />
+            ) : (
+              <Globe className="w-4 h-4" />
+            )}
+            <span>Public</span>
+          </button>
+          <button
             type="button"
             onClick={() => handleSubmit(true)}
             disabled={isSubmitting}
-            variant="secondary"
-            className="flex-1 bg-slate-800 hover:bg-slate-700 text-slate-300 border-slate-700"
+            className="flex-1 btn-ghost text-stone-300 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            <Lock className="h-4 w-4 mr-2" />
-            Private
-          </Button>
+            {isSubmitting ? (
+              <Loader2 className="w-4 h-4 animate-spin" />
+            ) : (
+              <Lock className="w-4 h-4" />
+            )}
+            <span>Private</span>
+          </button>
         </div>
 
-        <div className="text-xs text-slate-500 space-y-1">
+        {/* Explanation */}
+        <div className="mt-6 pt-6 border-t border-white/5 space-y-2 text-xs text-stone-600">
           <p>
-            <strong className="text-slate-400">Public:</strong> Channel will appear in the public list
+            <span className="text-stone-400">Public:</span> Channel appears in the public list for anyone to join
           </p>
           <p>
-            <strong className="text-slate-400">Private:</strong> Only people with the link can access
+            <span className="text-stone-400">Private:</span> Only people with the link can access the channel
           </p>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }
