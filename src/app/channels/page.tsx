@@ -4,7 +4,7 @@ import { Hash, Plus, Sparkles } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
 
-async function getPublicChannels() {
+async function getPublicChannels(): Promise<string[]> {
   const results = await prisma.sharedLink.findMany({
     where: { secret: false },
     distinct: ['channel'],
@@ -12,7 +12,7 @@ async function getPublicChannels() {
     orderBy: { createdAt: 'desc' },
   });
 
-  return results.map((r) => r.channel);
+  return results.map((r: { channel: string }) => r.channel);
 }
 
 export default async function ChannelsPage() {

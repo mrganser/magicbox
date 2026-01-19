@@ -1,4 +1,5 @@
 import { prisma } from '@/lib/prisma';
+import type { SharedLink } from '@prisma/client';
 import { ChannelView } from '@/components/channel/channel-view';
 
 export const dynamic = 'force-dynamic';
@@ -25,7 +26,7 @@ export default async function PrivateChannelPage({
     orderBy: { createdAt: 'asc' },
   });
 
-  const serializedLinks = links.map((link) => ({
+  const serializedLinks = links.map((link: SharedLink) => ({
     id: link.id,
     channel: link.channel,
     secret: link.secret,
