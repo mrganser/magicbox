@@ -12,7 +12,16 @@ declare global {
   }
 }
 
-export async function executeRecaptcha(action: string): Promise<string> {
+export function isRecaptchaEnabled(): boolean {
+  return !!process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+}
+
+export async function executeRecaptcha(action: string): Promise<string | null> {
+  const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+  if (!siteKey) {
+    return null;
+  }
+
   return new Promise((resolve, reject) => {
     if (typeof window === 'undefined' || !window.grecaptcha || !window.grecaptcha.enterprise) {
       reject(new Error('reCAPTCHA not loaded'));
@@ -20,12 +29,6 @@ export async function executeRecaptcha(action: string): Promise<string> {
     }
 
     window.grecaptcha.enterprise.ready(() => {
-      const siteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
-      if (!siteKey) {
-        reject(new Error('reCAPTCHA site key not configured'));
-        return;
-      }
-
       window.grecaptcha.enterprise
         .execute(siteKey, { action })
         .then(resolve)
@@ -34,7 +37,11 @@ export async function executeRecaptcha(action: string): Promise<string> {
   });
 }
 
-export async function verifyRecaptcha(token: string): Promise<boolean> {
+export async function verifyRecaptcha(token: string | null): Promise<boolean> {
+  if (!token) {
+    return true;
+  }
+
   try {
     const response = await fetch('/api/recaptcha/verify', {
       method: 'POST',

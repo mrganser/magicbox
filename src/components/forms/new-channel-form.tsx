@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { executeRecaptcha, verifyRecaptcha } from '@/lib/recaptcha';
+import { executeRecaptcha, verifyRecaptcha, isRecaptchaEnabled } from '@/lib/recaptcha';
 import { Globe, Lock, AlertCircle, Sparkles, Loader2 } from 'lucide-react';
 
 export function NewChannelForm() {
@@ -89,27 +89,29 @@ export function NewChannelForm() {
         </div>
 
         {/* reCAPTCHA notice */}
-        <p className="text-xs text-stone-600 mb-6 leading-relaxed">
-          This site is protected by reCAPTCHA and the Google{' '}
-          <a
-            href="https://policies.google.com/privacy"
-            className="text-teal-500/70 hover:text-teal-400 transition-colors"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Privacy Policy
-          </a>{' '}
-          and{' '}
-          <a
-            href="https://policies.google.com/terms"
-            className="text-teal-500/70 hover:text-teal-400 transition-colors"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Terms of Service
-          </a>{' '}
-          apply.
-        </p>
+        {isRecaptchaEnabled() && (
+          <p className="text-xs text-stone-600 mb-6 leading-relaxed">
+            This site is protected by reCAPTCHA and the Google{' '}
+            <a
+              href="https://policies.google.com/privacy"
+              className="text-teal-500/70 hover:text-teal-400 transition-colors"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Privacy Policy
+            </a>{' '}
+            and{' '}
+            <a
+              href="https://policies.google.com/terms"
+              className="text-teal-500/70 hover:text-teal-400 transition-colors"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Terms of Service
+            </a>{' '}
+            apply.
+          </p>
+        )}
 
         {/* Buttons */}
         <div className="flex gap-3">

@@ -15,10 +15,10 @@ https://themagicbox.onrender.com/
 
 ## Tech Stack
 
-- **Framework**: [Next.js 15](https://nextjs.org/) with App Router
+- **Framework**: [Next.js](https://nextjs.org/) with App Router
 - **Language**: [TypeScript](https://www.typescriptlang.org/)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/) + [shadcn/ui](https://ui.shadcn.com/)
-- **Database**: [PostgreSQL](https://www.postgresql.org/) with [Prisma](https://www.prisma.io/)
+- **Database**: [MongoDB Atlas](https://www.mongodb.com/atlas) with [Prisma](https://www.prisma.io/)
 - **Real-time**: [Socket.IO](https://socket.io/)
 - **Spam Protection**: [Google reCAPTCHA v3](https://developers.google.com/recaptcha/docs/v3)
 
@@ -26,8 +26,8 @@ https://themagicbox.onrender.com/
 
 ### Prerequisites
 
-- Node.js >= 18
-- PostgreSQL database
+- Node.js >= 20
+- A MongoDB database, for example the MongoDB Atlas free tier
 
 ### Installation
 
@@ -44,7 +44,7 @@ https://themagicbox.onrender.com/
    ```
 
    Configure the following in your `.env` file:
-   - `DATABASE_URL` - PostgreSQL connection string
+   - `DATABASE_URL` - MongoDB connection string (e.g., `mongodb+srv://user:pass@cluster.mongodb.net/xyz`)
    - `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` - reCAPTCHA site key (optional)
    - `RECAPTCHA_SECRET_KEY` - reCAPTCHA secret key (optional)
 
@@ -70,7 +70,7 @@ npm test
 
 This project is ready to deploy to platforms like Render, Vercel, or Railway. Make sure to:
 
-1. Set up a PostgreSQL database
+1. Set up a MongoDB database like Atlas cluster and get your connection string
 2. Configure environment variables
 3. Run `npx prisma db push` to initialize the database schema
 
