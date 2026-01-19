@@ -48,16 +48,13 @@ export function useYouTubeSync({ channel, currentLink }: UseYouTubeSyncOptions) 
   const playerRef = useRef<YTPlayer | null>(null);
   const playerReadyRef = useRef(false);
   const comesFromSocketRef = useRef(false);
-  const [isReady, setIsReady] = useState(false);
+  const [isReady, setIsReady] = useState(
+    () => typeof window !== 'undefined' && !!window.YT
+  );
 
   // Load YouTube API
   useEffect(() => {
-    if (typeof window === 'undefined') return;
-
-    if (window.YT) {
-      setIsReady(true);
-      return;
-    }
+    if (typeof window === 'undefined' || isReady) return;
 
     const existingScript = document.querySelector(
       'script[src="https://www.youtube.com/iframe_api"]'
@@ -69,7 +66,7 @@ export function useYouTubeSync({ channel, currentLink }: UseYouTubeSyncOptions) 
     document.head.appendChild(tag);
 
     window.onYouTubeIframeAPIReady = () => setIsReady(true);
-  }, []);
+  }, [isReady]);
 
   // Initialize player when ready and link is YouTube
   const initializePlayer = useCallback(

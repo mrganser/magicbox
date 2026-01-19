@@ -25,25 +25,33 @@ const SocketContext = createContext<SocketContextValue>({
   isConnected: false,
 });
 
+function createSocket(): TypedSocket | null {
+  if (typeof window === 'undefined') return null;
+  return io({
+    path: '/socket.io',
+    transports: ['websocket', 'polling'],
+  });
+}
+
 export function SocketProvider({ children }: { children: ReactNode }) {
-  const [socket, setSocket] = useState<TypedSocket | null>(null);
+  const [socket] = useState<TypedSocket | null>(createSocket);
   const [isConnected, setIsConnected] = useState(false);
 
   useEffect(() => {
-    const socketInstance: TypedSocket = io({
-      path: '/socket.io',
-      transports: ['websocket', 'polling'],
-    });
+    if (!socket) return;
 
-    socketInstance.on('connect', () => setIsConnected(true));
-    socketInstance.on('disconnect', () => setIsConnected(false));
+    const handleConnect = () => setIsConnected(true);
+    const handleDisconnect = () => setIsConnected(false);
 
-    setSocket(socketInstance);
+    socket.on('connect', handleConnect);
+    socket.on('disconnect', handleDisconnect);
 
     return () => {
-      socketInstance.disconnect();
+      socket.off('connect', handleConnect);
+      socket.off('disconnect', handleDisconnect);
+      socket.disconnect();
     };
-  }, []);
+  }, [socket]);
 
   return (
     <SocketContext.Provider value={{ socket, isConnected }}>
