@@ -6,6 +6,10 @@ A real-time media sharing platform. Create channels, share links, and watch YouT
 
 https://themagicbox.onrender.com/
 
+![Demo 1](demo/demo1.png)
+
+![Demo 2](demo/demo2.png)
+
 ## Features
 
 - **Real-time Sharing** - Share links instantly with everyone in your channel
