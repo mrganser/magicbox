@@ -1,8 +1,3 @@
-export interface ChannelContext {
-  channel: string;
-  secret: boolean;
-}
-
 export type MediaTypeKind =
   | 'youtube'
   | 'spotify'

@@ -5,9 +5,3 @@ export interface SharedLink {
   link: string;
   createdAt: Date;
 }
-
-export interface CreateLinkInput {
-  channel: string;
-  secret: boolean;
-  link: string;
-}
