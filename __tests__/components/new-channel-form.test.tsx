@@ -1,5 +1,5 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { NewChannelForm } from '@/components/forms/new-channel-form';
 
 // Mock recaptcha module
@@ -30,10 +30,12 @@ describe('NewChannelForm', () => {
 
     expect(screen.getByLabelText(/channel name/i)).toBeInTheDocument();
     expect(
-      screen.getByPlaceholderText(/enter a name for your channel/i)
+      screen.getByPlaceholderText(/enter a name for your channel/i),
     ).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /public/i })).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /private/i })).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: /private/i }),
+    ).toBeInTheDocument();
   });
 
   it('shows error when submitting with empty channel name', async () => {
@@ -43,7 +45,7 @@ describe('NewChannelForm', () => {
     fireEvent.click(publicButton);
 
     expect(
-      await screen.findByText(/please enter a channel name/i)
+      await screen.findByText(/please enter a channel name/i),
     ).toBeInTheDocument();
     expect(mockPush).not.toHaveBeenCalled();
   });
@@ -58,7 +60,7 @@ describe('NewChannelForm', () => {
     fireEvent.click(publicButton);
 
     expect(
-      await screen.findByText(/please enter a channel name/i)
+      await screen.findByText(/please enter a channel name/i),
     ).toBeInTheDocument();
     expect(mockPush).not.toHaveBeenCalled();
   });
@@ -101,9 +103,7 @@ describe('NewChannelForm', () => {
     fireEvent.click(publicButton);
 
     await waitFor(() => {
-      expect(mockPush).toHaveBeenCalledWith(
-        '/channels/my%20channel%2Ftest'
-      );
+      expect(mockPush).toHaveBeenCalledWith('/channels/my%20channel%2Ftest');
     });
   });
 
@@ -155,7 +155,7 @@ describe('NewChannelForm', () => {
     fireEvent.click(publicButton);
 
     expect(
-      await screen.findByText(/recaptcha verification failed/i)
+      await screen.findByText(/recaptcha verification failed/i),
     ).toBeInTheDocument();
     expect(mockPush).not.toHaveBeenCalled();
   });

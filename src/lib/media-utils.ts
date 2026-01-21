@@ -43,7 +43,10 @@ export function convertToEmbedUrl(link: string): string {
 
   // Spotify conversion
   if (SPOTIFY_REGEX.test(link)) {
-    return link.replace(SPOTIFY_REGEX, 'https://embed.spotify.com/?uri=spotify:');
+    return link.replace(
+      SPOTIFY_REGEX,
+      'https://embed.spotify.com/?uri=spotify:',
+    );
   }
 
   return link;

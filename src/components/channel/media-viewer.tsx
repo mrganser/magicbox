@@ -1,9 +1,9 @@
 'use client';
 
+import { Share2, Sparkles } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 import { useYouTubeSync } from '@/hooks/use-youtube-sync';
 import { getMediaType, isYouTubeEmbed } from '@/lib/media-utils';
-import { Share2, Sparkles } from 'lucide-react';
 
 interface MediaViewerProps {
   link: string | null;
@@ -53,10 +53,9 @@ export function MediaViewer({ link, channel }: MediaViewerProps) {
 
   const mediaType = getMediaType(link);
 
-  // For images
+  // For images - using img because src is dynamic external user-provided URL
   if (mediaType.type === 'image') {
     return (
-      // eslint-disable-next-line @next/next/no-img-element
       <img
         src={link}
         alt="Shared content"
@@ -98,6 +97,7 @@ export function MediaViewer({ link, channel }: MediaViewerProps) {
       id="media-iframe"
       ref={iframeRef}
       src={link}
+      title="Media player"
       className="absolute inset-0 w-full h-full"
       allowFullScreen
       allow="autoplay; encrypted-media; fullscreen"

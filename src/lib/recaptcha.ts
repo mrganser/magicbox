@@ -5,9 +5,9 @@ declare global {
         ready: (callback: () => void) => void;
         execute: (
           siteKey: string,
-          options: { action: string }
+          options: { action: string },
         ) => Promise<string>;
-      }
+      };
     };
   }
 }
@@ -23,7 +23,11 @@ export async function executeRecaptcha(action: string): Promise<string | null> {
   }
 
   return new Promise((resolve, reject) => {
-    if (typeof window === 'undefined' || !window.grecaptcha || !window.grecaptcha.enterprise) {
+    if (
+      typeof window === 'undefined' ||
+      !window.grecaptcha ||
+      !window.grecaptcha.enterprise
+    ) {
       reject(new Error('reCAPTCHA not loaded'));
       return;
     }

@@ -1,9 +1,9 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useSocket } from '@/contexts/socket-context';
-import type { SharedLink } from '@/types/link';
 import { convertToEmbedUrl, isValidMediaLink } from '@/lib/media-utils';
+import type { SharedLink } from '@/types/link';
 
 interface UseChannelOptions {
   channel: string;
@@ -18,11 +18,15 @@ function playNotificationSound() {
   });
 }
 
-export function useChannel({ channel, secret, initialLinks }: UseChannelOptions) {
+export function useChannel({
+  channel,
+  secret,
+  initialLinks,
+}: UseChannelOptions) {
   const { socket } = useSocket();
   const [links, setLinks] = useState<SharedLink[]>(initialLinks);
   const [currentLink, setCurrentLink] = useState<string | null>(
-    initialLinks.length > 0 ? initialLinks[initialLinks.length - 1].link : null
+    initialLinks.length > 0 ? initialLinks[initialLinks.length - 1].link : null,
   );
 
   useEffect(() => {
@@ -32,7 +36,7 @@ export function useChannel({ channel, secret, initialLinks }: UseChannelOptions)
       eventChannel: string,
       eventSecret: boolean,
       link: string,
-      date: Date
+      date: Date,
     ) => {
       if (eventChannel === channel && eventSecret === secret) {
         const newLink: SharedLink = {
@@ -51,7 +55,7 @@ export function useChannel({ channel, secret, initialLinks }: UseChannelOptions)
     const handleLinkChanged = (
       eventChannel: string,
       eventSecret: boolean,
-      link: string
+      link: string,
     ) => {
       if (eventChannel === channel && eventSecret === secret) {
         setCurrentLink(link);
@@ -75,7 +79,7 @@ export function useChannel({ channel, secret, initialLinks }: UseChannelOptions)
       socket.emit('linkshared', channel, secret, embedLink);
       return true;
     },
-    [socket, channel, secret]
+    [socket, channel, secret],
   );
 
   const changeLink = useCallback(
@@ -84,7 +88,7 @@ export function useChannel({ channel, secret, initialLinks }: UseChannelOptions)
       setCurrentLink(link);
       socket.emit('linkchanged', channel, secret, link);
     },
-    [socket, channel, secret]
+    [socket, channel, secret],
   );
 
   return { links, currentLink, shareLink, changeLink };

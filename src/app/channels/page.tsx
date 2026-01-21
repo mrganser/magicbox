@@ -1,6 +1,6 @@
+import { Hash, Plus, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 import { prisma } from '@/lib/prisma';
-import { Hash, Plus, Sparkles } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
 

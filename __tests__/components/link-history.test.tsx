@@ -1,11 +1,11 @@
-import { describe, it, expect, vi } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
+import { describe, expect, it, vi } from 'vitest';
 import { LinkHistory } from '@/components/channel/link-history';
 import type { SharedLink } from '@/types/link';
 
 // YouTube video IDs must be exactly 11 characters
 const createMockLink = (overrides: Partial<SharedLink> = {}): SharedLink => ({
-  id: 'test-id-' + Math.random().toString(36).substring(7),
+  id: `test-id-${Math.random().toString(36).substring(7)}`,
   channel: 'test-channel',
   secret: false,
   link: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
@@ -15,12 +15,12 @@ const createMockLink = (overrides: Partial<SharedLink> = {}): SharedLink => ({
 
 describe('LinkHistory', () => {
   it('shows empty state when no links are shared', () => {
-    render(
-      <LinkHistory links={[]} currentLink={null} onLinkClick={vi.fn()} />
-    );
+    render(<LinkHistory links={[]} currentLink={null} onLinkClick={vi.fn()} />);
 
     expect(screen.getByText(/no links shared yet/i)).toBeInTheDocument();
-    expect(screen.getByText(/share something to get started/i)).toBeInTheDocument();
+    expect(
+      screen.getByText(/share something to get started/i),
+    ).toBeInTheDocument();
   });
 
   it('renders a list of shared links', () => {
@@ -38,7 +38,7 @@ describe('LinkHistory', () => {
     ];
 
     render(
-      <LinkHistory links={links} currentLink={null} onLinkClick={vi.fn()} />
+      <LinkHistory links={links} currentLink={null} onLinkClick={vi.fn()} />,
     );
 
     // Should show media type labels (lowercase as returned by getMediaType)
@@ -55,7 +55,7 @@ describe('LinkHistory', () => {
     ];
 
     render(
-      <LinkHistory links={links} currentLink={null} onLinkClick={vi.fn()} />
+      <LinkHistory links={links} currentLink={null} onLinkClick={vi.fn()} />,
     );
 
     expect(screen.getByText(/Jan 15, 10:30/i)).toBeInTheDocument();
@@ -75,15 +75,15 @@ describe('LinkHistory', () => {
         links={links}
         currentLink={null}
         onLinkClick={onLinkClick}
-      />
+      />,
     );
 
     const linkItem = screen.getByText('youtube').closest('li');
     expect(linkItem).toBeInTheDocument();
-    fireEvent.click(linkItem!);
+    if (linkItem) fireEvent.click(linkItem);
 
     expect(onLinkClick).toHaveBeenCalledWith(
-      'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+      'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
     );
   });
 
@@ -105,7 +105,7 @@ describe('LinkHistory', () => {
         links={links}
         currentLink={currentLink}
         onLinkClick={vi.fn()}
-      />
+      />,
     );
 
     const listItems = screen.getAllByRole('listitem');
@@ -136,7 +136,7 @@ describe('LinkHistory', () => {
     ];
 
     render(
-      <LinkHistory links={links} currentLink={null} onLinkClick={vi.fn()} />
+      <LinkHistory links={links} currentLink={null} onLinkClick={vi.fn()} />,
     );
 
     expect(screen.getByText('youtube')).toBeInTheDocument();
@@ -165,7 +165,7 @@ describe('LinkHistory', () => {
     ];
 
     render(
-      <LinkHistory links={links} currentLink={null} onLinkClick={vi.fn()} />
+      <LinkHistory links={links} currentLink={null} onLinkClick={vi.fn()} />,
     );
 
     const listItems = screen.getAllByRole('listitem');

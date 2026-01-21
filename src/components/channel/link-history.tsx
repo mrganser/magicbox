@@ -1,18 +1,18 @@
 'use client';
 
 import { format } from 'date-fns';
+import {
+  FileText,
+  Film,
+  Image,
+  Link as LinkIcon,
+  Music,
+  X,
+  Youtube,
+} from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { getMediaType } from '@/lib/media-utils';
 import { cn } from '@/lib/utils';
-import {
-  Youtube,
-  Music,
-  FileText,
-  Image,
-  Film,
-  Link as LinkIcon,
-  X,
-} from 'lucide-react';
 import type { SharedLink } from '@/types/link';
 
 interface LinkHistoryProps {
@@ -53,7 +53,9 @@ export function LinkHistory({
             <LinkIcon className="w-5 h-5 text-stone-500" />
           </div>
           <p className="text-stone-500 text-sm">No links shared yet</p>
-          <p className="text-stone-600 text-xs mt-1">Share something to get started</p>
+          <p className="text-stone-600 text-xs mt-1">
+            Share something to get started
+          </p>
         </div>
       </div>
     );
@@ -74,9 +76,11 @@ export function LinkHistory({
               className={cn(
                 'px-3 py-3 rounded-xl cursor-pointer transition-all duration-300',
                 'hover:bg-white/3',
-                isActive && 'bg-teal-500/10 border border-teal-500/20 glow-soft'
+                isActive &&
+                  'bg-teal-500/10 border border-teal-500/20 glow-soft',
               )}
               onClick={() => onLinkClick(item.link)}
+              onKeyDown={(e) => e.key === 'Enter' && onLinkClick(item.link)}
             >
               <div className="flex items-center gap-3">
                 <div
@@ -84,13 +88,13 @@ export function LinkHistory({
                     'w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-colors',
                     isActive
                       ? 'bg-teal-500/20 border border-teal-500/30'
-                      : 'bg-white/3 border border-white/5'
+                      : 'bg-white/3 border border-white/5',
                   )}
                 >
                   <IconComponent
                     className={cn(
                       'w-4 h-4',
-                      isActive ? 'text-teal-400' : iconColor
+                      isActive ? 'text-teal-400' : iconColor,
                     )}
                   />
                 </div>
@@ -98,7 +102,7 @@ export function LinkHistory({
                   <p
                     className={cn(
                       'text-sm font-medium truncate transition-colors',
-                      isActive ? 'text-teal-200' : 'text-stone-300'
+                      isActive ? 'text-teal-200' : 'text-stone-300',
                     )}
                   >
                     {mediaType.type}

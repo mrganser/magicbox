@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -58,7 +58,7 @@
   position: relative;
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
@@ -108,7 +108,7 @@
   overflow: hidden;
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     inset: -50%;
     background: conic-gradient(
@@ -145,7 +145,7 @@
   overflow: hidden;
 
   &::after {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
     background: linear-gradient(
@@ -203,7 +203,7 @@
   }
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     inset: 0;
     background: linear-gradient(
@@ -312,50 +312,93 @@
     @apply bg-background text-foreground antialiased;
     font-family: var(--font-sans), system-ui, sans-serif;
     background:
-      radial-gradient(ellipse 80% 50% at 50% -20%, hsla(260, 50%, 25%, 0.3), transparent),
-      radial-gradient(ellipse 60% 40% at 100% 50%, hsla(174, 60%, 30%, 0.15), transparent),
-      radial-gradient(ellipse 50% 30% at 0% 80%, hsla(35, 80%, 40%, 0.1), transparent),
+      radial-gradient(
+        ellipse 80% 50% at 50% -20%,
+        hsla(260, 50%, 25%, 0.3),
+        transparent
+      ),
+      radial-gradient(
+        ellipse 60% 40% at 100% 50%,
+        hsla(174, 60%, 30%, 0.15),
+        transparent
+      ),
+      radial-gradient(
+        ellipse 50% 30% at 0% 80%,
+        hsla(35, 80%, 40%, 0.1),
+        transparent
+      ),
       hsl(var(--cosmic-deep));
     background-attachment: fixed;
   }
 
   /* Serif only for large display headings */
-  h1, h2, .font-display {
+  h1,
+  h2,
+  .font-display {
     font-family: var(--font-display), Georgia, serif;
     letter-spacing: 0;
   }
 
   /* Sans for smaller headings */
-  h3, h4, h5, h6 {
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-sans), system-ui, sans-serif;
   }
 }
 
 @layer utilities {
-
   @keyframes aurora-rotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
   }
 
   @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
   }
 
   @keyframes pulse-glow {
-    0%, 100% { opacity: 0.5; filter: blur(40px); }
-    50% { opacity: 0.8; filter: blur(50px); }
+    0%,
+    100% {
+      opacity: 0.5;
+      filter: blur(40px);
+    }
+    50% {
+      opacity: 0.8;
+      filter: blur(50px);
+    }
   }
 
   @keyframes shimmer {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
   }
 
   @keyframes twinkle {
-    0%, 100% { opacity: 0.3; transform: scale(1); }
-    50% { opacity: 1; transform: scale(1.2); }
+    0%,
+    100% {
+      opacity: 0.3;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.2);
+    }
   }
 }
 

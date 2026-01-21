@@ -1,6 +1,6 @@
-import { prisma } from '@/lib/prisma';
 import type { SharedLink } from '@prisma/client';
 import { ChannelView } from '@/components/channel/channel-view';
+import { prisma } from '@/lib/prisma';
 
 export const dynamic = 'force-dynamic';
 

@@ -1,9 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { AlertCircle, Globe, Loader2, Lock, Sparkles } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { executeRecaptcha, verifyRecaptcha, isRecaptchaEnabled } from '@/lib/recaptcha';
-import { Globe, Lock, AlertCircle, Sparkles, Loader2 } from 'lucide-react';
+import { useState } from 'react';
+import {
+  executeRecaptcha,
+  isRecaptchaEnabled,
+  verifyRecaptcha,
+} from '@/lib/recaptcha';
 
 export function NewChannelForm() {
   const router = useRouter();
@@ -73,7 +77,10 @@ export function NewChannelForm() {
 
         {/* Input */}
         <div className="mb-6">
-          <label htmlFor="channelname" className="block text-sm font-medium text-stone-400 mb-2">
+          <label
+            htmlFor="channelname"
+            className="block text-sm font-medium text-stone-400 mb-2"
+          >
             Channel Name
           </label>
           <input
@@ -146,10 +153,12 @@ export function NewChannelForm() {
         {/* Explanation */}
         <div className="mt-6 pt-6 border-t border-white/5 space-y-2 text-xs text-stone-600">
           <p>
-            <span className="text-stone-400">Public:</span> Channel appears in the public list for anyone to join
+            <span className="text-stone-400">Public:</span> Channel appears in
+            the public list for anyone to join
           </p>
           <p>
-            <span className="text-stone-400">Private:</span> Only people with the link can access the channel
+            <span className="text-stone-400">Private:</span> Only people with
+            the link can access the channel
           </p>
         </div>
       </div>

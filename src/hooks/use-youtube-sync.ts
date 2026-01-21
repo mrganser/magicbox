@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useCallback, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useSocket } from '@/contexts/socket-context';
 import { isYouTubeEmbed } from '@/lib/media-utils';
 
@@ -19,7 +19,7 @@ declare global {
             onReady?: (event: { target: YTPlayer }) => void;
             onStateChange?: (event: { data: number; target: YTPlayer }) => void;
           };
-        }
+        },
       ) => YTPlayer;
       PlayerState: {
         PLAYING: number;
@@ -43,13 +43,16 @@ interface YTPlayer {
   destroy: () => void;
 }
 
-export function useYouTubeSync({ channel, currentLink }: UseYouTubeSyncOptions) {
+export function useYouTubeSync({
+  channel,
+  currentLink,
+}: UseYouTubeSyncOptions) {
   const { socket } = useSocket();
   const playerRef = useRef<YTPlayer | null>(null);
   const playerReadyRef = useRef(false);
   const comesFromSocketRef = useRef(false);
   const [isReady, setIsReady] = useState(
-    () => typeof window !== 'undefined' && !!window.YT
+    () => typeof window !== 'undefined' && !!window.YT,
   );
 
   // Load YouTube API
@@ -57,7 +60,7 @@ export function useYouTubeSync({ channel, currentLink }: UseYouTubeSyncOptions) 
     if (typeof window === 'undefined' || isReady) return;
 
     const existingScript = document.querySelector(
-      'script[src="https://www.youtube.com/iframe_api"]'
+      'script[src="https://www.youtube.com/iframe_api"]',
     );
     if (existingScript) return;
 
@@ -104,17 +107,25 @@ export function useYouTubeSync({ channel, currentLink }: UseYouTubeSyncOptions) 
 
             switch (event.data) {
               case window.YT.PlayerState.PLAYING:
-                socket.emit('playvideo', channel, playerRef.current!.getCurrentTime());
+                socket.emit(
+                  'playvideo',
+                  channel,
+                  playerRef.current?.getCurrentTime() ?? 0,
+                );
                 break;
               case window.YT.PlayerState.PAUSED:
-                socket.emit('pausevideo', channel, playerRef.current!.getCurrentTime());
+                socket.emit(
+                  'pausevideo',
+                  channel,
+                  playerRef.current?.getCurrentTime() ?? 0,
+                );
                 break;
             }
           },
         },
       });
     },
-    [isReady, currentLink, socket, channel]
+    [isReady, currentLink, socket, channel],
   );
 
   // Handle socket events for sync
@@ -122,8 +133,15 @@ export function useYouTubeSync({ channel, currentLink }: UseYouTubeSyncOptions) 
     if (!socket) return;
 
     const handlePlay = (eventChannel: string, time: number) => {
-      if (eventChannel !== channel || !playerRef.current || !playerReadyRef.current) return;
-      if (playerRef.current.getPlayerState() !== window.YT.PlayerState.PLAYING) {
+      if (
+        eventChannel !== channel ||
+        !playerRef.current ||
+        !playerReadyRef.current
+      )
+        return;
+      if (
+        playerRef.current.getPlayerState() !== window.YT.PlayerState.PLAYING
+      ) {
         comesFromSocketRef.current = true;
         playerRef.current.seekTo(time);
         playerRef.current.playVideo();
@@ -131,8 +149,15 @@ export function useYouTubeSync({ channel, currentLink }: UseYouTubeSyncOptions) 
     };
 
     const handlePause = (eventChannel: string, time: number) => {
-      if (eventChannel !== channel || !playerRef.current || !playerReadyRef.current) return;
-      if (playerRef.current.getPlayerState() === window.YT.PlayerState.PLAYING) {
+      if (
+        eventChannel !== channel ||
+        !playerRef.current ||
+        !playerReadyRef.current
+      )
+        return;
+      if (
+        playerRef.current.getPlayerState() === window.YT.PlayerState.PLAYING
+      ) {
         comesFromSocketRef.current = true;
         playerRef.current.seekTo(time);
         playerRef.current.pauseVideo();

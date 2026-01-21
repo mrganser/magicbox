@@ -2,10 +2,10 @@
 
 import {
   createContext,
+  type ReactNode,
   useContext,
   useEffect,
   useState,
-  type ReactNode,
 } from 'react';
 import { io, type Socket } from 'socket.io-client';
 import type {

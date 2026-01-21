@@ -1,15 +1,15 @@
-import Link from 'next/link';
 import {
+  ArrowRight,
+  FileText,
+  Globe,
+  Image as ImageIcon,
+  Music,
+  Play,
   Sparkles,
   Users,
   Youtube,
-  Music,
-  FileText,
-  Image as ImageIcon,
-  Play,
-  Globe,
-  ArrowRight,
 } from 'lucide-react';
+import Link from 'next/link';
 
 function StarField() {
   // Generate deterministic star positions
@@ -73,16 +73,23 @@ function FeatureCard({
 }) {
   const accentClasses = {
     teal: 'from-teal-500/20 to-teal-500/5 group-hover:border-teal-500/40 text-teal-400',
-    amber: 'from-amber-500/20 to-amber-500/5 group-hover:border-amber-500/40 text-amber-400',
+    amber:
+      'from-amber-500/20 to-amber-500/5 group-hover:border-amber-500/40 text-amber-400',
     rose: 'from-rose-500/20 to-rose-500/5 group-hover:border-rose-500/40 text-rose-400',
   };
 
   return (
     <div className="group glass card-lift rounded-2xl p-6 border border-white/5 hover:glow-soft">
-      <div className={`w-12 h-12 rounded-xl bg-linear-to-br ${accentClasses[accentColor]} flex items-center justify-center mb-4 transition-all duration-300`}>
-        <Icon className={`w-6 h-6 ${accentClasses[accentColor].split(' ').pop()}`} />
+      <div
+        className={`w-12 h-12 rounded-xl bg-linear-to-br ${accentClasses[accentColor]} flex items-center justify-center mb-4 transition-all duration-300`}
+      >
+        <Icon
+          className={`w-6 h-6 ${accentClasses[accentColor].split(' ').pop()}`}
+        />
       </div>
-      <h3 className="text-xl font-semibold text-amber-50/90 mb-2 font-display">{title}</h3>
+      <h3 className="text-xl font-semibold text-amber-50/90 mb-2 font-display">
+        {title}
+      </h3>
       <p className="text-stone-400 leading-relaxed">{description}</p>
     </div>
   );
@@ -100,12 +107,18 @@ function MediaTypeIcon({
   return (
     <div className="group flex flex-col items-center gap-3">
       <div className="relative">
-        <div className={`absolute inset-0 ${color} rounded-2xl blur-lg opacity-0 group-hover:opacity-40 transition-opacity duration-500`} />
+        <div
+          className={`absolute inset-0 ${color} rounded-2xl blur-lg opacity-0 group-hover:opacity-40 transition-opacity duration-500`}
+        />
         <div className="relative w-16 h-16 glass rounded-2xl flex items-center justify-center group-hover:border-white/10 transition-all duration-300">
-          <Icon className={`w-7 h-7 ${color.replace('bg-', 'text-').replace('/50', '-400')}`} />
+          <Icon
+            className={`w-7 h-7 ${color.replace('bg-', 'text-').replace('/50', '-400')}`}
+          />
         </div>
       </div>
-      <span className="text-stone-400 text-sm font-medium group-hover:text-stone-300 transition-colors">{label}</span>
+      <span className="text-stone-400 text-sm font-medium group-hover:text-stone-300 transition-colors">
+        {label}
+      </span>
     </div>
   );
 }
@@ -200,8 +213,16 @@ export default function HomePage() {
         <div className="flex flex-wrap justify-center gap-10 md:gap-16">
           <MediaTypeIcon icon={Youtube} label="YouTube" color="bg-red-500/50" />
           <MediaTypeIcon icon={Music} label="Spotify" color="bg-green-500/50" />
-          <MediaTypeIcon icon={ImageIcon} label="Images" color="bg-amber-500/50" />
-          <MediaTypeIcon icon={FileText} label="Documents" color="bg-cyan-500/50" />
+          <MediaTypeIcon
+            icon={ImageIcon}
+            label="Images"
+            color="bg-amber-500/50"
+          />
+          <MediaTypeIcon
+            icon={FileText}
+            label="Documents"
+            color="bg-cyan-500/50"
+          />
         </div>
       </section>
 

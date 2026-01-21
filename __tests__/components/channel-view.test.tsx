@@ -1,5 +1,5 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { ChannelView } from '@/components/channel/channel-view';
 import type { SharedLink } from '@/types/link';
 
@@ -26,7 +26,7 @@ vi.mock('@/contexts/socket-context', () => ({
 }));
 
 const createMockLink = (overrides: Partial<SharedLink> = {}): SharedLink => ({
-  id: 'test-id-' + Math.random().toString(36).substring(7),
+  id: `test-id-${Math.random().toString(36).substring(7)}`,
   channel: 'test-channel',
   secret: false,
   link: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
@@ -41,7 +41,7 @@ describe('ChannelView', () => {
 
   it('renders channel header with channel name', () => {
     render(
-      <ChannelView channel="my-channel" secret={false} initialLinks={[]} />
+      <ChannelView channel="my-channel" secret={false} initialLinks={[]} />,
     );
 
     expect(screen.getByText('my-channel')).toBeInTheDocument();
@@ -50,7 +50,7 @@ describe('ChannelView', () => {
 
   it('shows private channel indicator for secret channels', () => {
     render(
-      <ChannelView channel="secret-room" secret={true} initialLinks={[]} />
+      <ChannelView channel="secret-room" secret={true} initialLinks={[]} />,
     );
 
     expect(screen.getByText('secret-room')).toBeInTheDocument();
@@ -59,18 +59,18 @@ describe('ChannelView', () => {
 
   it('renders the link input component', () => {
     render(
-      <ChannelView channel="test-channel" secret={false} initialLinks={[]} />
+      <ChannelView channel="test-channel" secret={false} initialLinks={[]} />,
     );
 
     expect(
-      screen.getByPlaceholderText(/paste a link to share/i)
+      screen.getByPlaceholderText(/paste a link to share/i),
     ).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /share/i })).toBeInTheDocument();
   });
 
   it('shows "Shared Links" section header', () => {
     render(
-      <ChannelView channel="test-channel" secret={false} initialLinks={[]} />
+      <ChannelView channel="test-channel" secret={false} initialLinks={[]} />,
     );
 
     expect(screen.getByText(/shared links/i)).toBeInTheDocument();
@@ -78,7 +78,7 @@ describe('ChannelView', () => {
 
   it('shows empty state when no links are shared', () => {
     render(
-      <ChannelView channel="test-channel" secret={false} initialLinks={[]} />
+      <ChannelView channel="test-channel" secret={false} initialLinks={[]} />,
     );
 
     expect(screen.getByText(/no links shared yet/i)).toBeInTheDocument();
@@ -101,7 +101,7 @@ describe('ChannelView', () => {
         channel="test-channel"
         secret={false}
         initialLinks={initialLinks}
-      />
+      />,
     );
 
     expect(screen.getByText('youtube')).toBeInTheDocument();
@@ -110,7 +110,7 @@ describe('ChannelView', () => {
 
   it('emits linkshared event when sharing a valid YouTube link', async () => {
     render(
-      <ChannelView channel="test-channel" secret={false} initialLinks={[]} />
+      <ChannelView channel="test-channel" secret={false} initialLinks={[]} />,
     );
 
     const input = screen.getByPlaceholderText(/paste a link to share/i);
@@ -126,14 +126,14 @@ describe('ChannelView', () => {
         'linkshared',
         'test-channel',
         false,
-        'https://www.youtube.com/embed/dQw4w9WgXcQ?enablejsapi=1'
+        'https://www.youtube.com/embed/dQw4w9WgXcQ?enablejsapi=1',
       );
     });
   });
 
   it('emits linkshared event with secret flag for private channels', async () => {
     render(
-      <ChannelView channel="private-room" secret={true} initialLinks={[]} />
+      <ChannelView channel="private-room" secret={true} initialLinks={[]} />,
     );
 
     const input = screen.getByPlaceholderText(/paste a link to share/i);
@@ -149,18 +149,18 @@ describe('ChannelView', () => {
         'linkshared',
         'private-room',
         true,
-        'https://www.youtube.com/embed/test1234567?enablejsapi=1'
+        'https://www.youtube.com/embed/test1234567?enablejsapi=1',
       );
     });
   });
 
   it('clears input after successful share', async () => {
     render(
-      <ChannelView channel="test-channel" secret={false} initialLinks={[]} />
+      <ChannelView channel="test-channel" secret={false} initialLinks={[]} />,
     );
 
     const input = screen.getByPlaceholderText(
-      /paste a link to share/i
+      /paste a link to share/i,
     ) as HTMLInputElement;
     fireEvent.change(input, {
       target: { value: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' },
@@ -176,7 +176,7 @@ describe('ChannelView', () => {
 
   it('shows error for invalid links', async () => {
     render(
-      <ChannelView channel="test-channel" secret={false} initialLinks={[]} />
+      <ChannelView channel="test-channel" secret={false} initialLinks={[]} />,
     );
 
     const input = screen.getByPlaceholderText(/paste a link to share/i);
@@ -211,7 +211,7 @@ describe('ChannelView', () => {
         channel="test-channel"
         secret={false}
         initialLinks={initialLinks}
-      />
+      />,
     );
 
     // Click on the first link in history
@@ -223,14 +223,14 @@ describe('ChannelView', () => {
         'linkchanged',
         'test-channel',
         false,
-        'https://www.youtube.com/watch?v=video123456'
+        'https://www.youtube.com/watch?v=video123456',
       );
     });
   });
 
   it('sets up socket event listeners on mount', () => {
     render(
-      <ChannelView channel="test-channel" secret={false} initialLinks={[]} />
+      <ChannelView channel="test-channel" secret={false} initialLinks={[]} />,
     );
 
     expect(mockOn).toHaveBeenCalledWith('linkshared', expect.any(Function));
@@ -239,7 +239,7 @@ describe('ChannelView', () => {
 
   it('removes socket event listeners on unmount', () => {
     const { unmount } = render(
-      <ChannelView channel="test-channel" secret={false} initialLinks={[]} />
+      <ChannelView channel="test-channel" secret={false} initialLinks={[]} />,
     );
 
     unmount();
@@ -250,7 +250,7 @@ describe('ChannelView', () => {
 
   it('converts YouTube short URLs to embed URLs when sharing', async () => {
     render(
-      <ChannelView channel="test-channel" secret={false} initialLinks={[]} />
+      <ChannelView channel="test-channel" secret={false} initialLinks={[]} />,
     );
 
     const input = screen.getByPlaceholderText(/paste a link to share/i);
@@ -266,14 +266,14 @@ describe('ChannelView', () => {
         'linkshared',
         'test-channel',
         false,
-        'https://www.youtube.com/embed/shortcode12?enablejsapi=1'
+        'https://www.youtube.com/embed/shortcode12?enablejsapi=1',
       );
     });
   });
 
   it('handles Spotify URI links correctly', async () => {
     render(
-      <ChannelView channel="test-channel" secret={false} initialLinks={[]} />
+      <ChannelView channel="test-channel" secret={false} initialLinks={[]} />,
     );
 
     const input = screen.getByPlaceholderText(/paste a link to share/i);
@@ -289,7 +289,7 @@ describe('ChannelView', () => {
         'linkshared',
         'test-channel',
         false,
-        'https://embed.spotify.com/?uri=spotify:track:4uLU6hMCjMI75M1A2tKUQC'
+        'https://embed.spotify.com/?uri=spotify:track:4uLU6hMCjMI75M1A2tKUQC',
       );
     });
   });
@@ -313,7 +313,7 @@ describe('ChannelView', () => {
         channel="test-channel"
         secret={false}
         initialLinks={initialLinks}
-      />
+      />,
     );
 
     // The second (newer) link should be highlighted as current

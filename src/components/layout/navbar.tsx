@@ -1,5 +1,5 @@
+import { Plus, Sparkles } from 'lucide-react';
 import Link from 'next/link';
-import { Sparkles, Plus } from 'lucide-react';
 
 export function Navbar() {
   return (

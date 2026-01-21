@@ -1,5 +1,5 @@
-import { Server as SocketIOServer, Socket } from 'socket.io';
 import { PrismaClient } from '@prisma/client';
+import type { Socket, Server as SocketIOServer } from 'socket.io';
 import type {
   ClientToServerEvents,
   ServerToClientEvents,

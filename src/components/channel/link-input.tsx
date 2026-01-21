@@ -1,7 +1,12 @@
 'use client';
 
-import { useState, useCallback, type KeyboardEvent, type ClipboardEvent } from 'react';
-import { CheckCircle, XCircle, Send, Loader2 } from 'lucide-react';
+import { CheckCircle, Loader2, Send, XCircle } from 'lucide-react';
+import {
+  type ClipboardEvent,
+  type KeyboardEvent,
+  useCallback,
+  useState,
+} from 'react';
 import { isValidMediaLink } from '@/lib/media-utils';
 import { cn } from '@/lib/utils';
 
@@ -62,15 +67,20 @@ export function LinkInput({ onShare }: LinkInputProps) {
           <div
             className={cn(
               'absolute right-3 top-1/2 -translate-y-1/2 transition-all duration-300',
-              feedback ? 'opacity-100 scale-100' : 'opacity-0 scale-75'
+              feedback ? 'opacity-100 scale-100' : 'opacity-0 scale-75',
             )}
           >
-            {feedback === 'error' && <XCircle className="w-5 h-5 text-red-400" />}
-            {feedback === 'success' && <CheckCircle className="w-5 h-5 text-teal-400" />}
+            {feedback === 'error' && (
+              <XCircle className="w-5 h-5 text-red-400" />
+            )}
+            {feedback === 'success' && (
+              <CheckCircle className="w-5 h-5 text-teal-400" />
+            )}
           </div>
         </div>
 
         <button
+          type="button"
           onClick={handleShare}
           disabled={isDisabled || !link.trim()}
           className={cn(
@@ -78,7 +88,7 @@ export function LinkInput({ onShare }: LinkInputProps) {
             'bg-linear-to-r from-teal-600 to-teal-700 text-white',
             'hover:from-teal-500 hover:to-teal-600',
             'shadow-lg shadow-teal-500/20 hover:shadow-teal-400/30',
-            'disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none disabled:transform-none'
+            'disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none disabled:transform-none',
           )}
         >
           {isDisabled ? (
@@ -94,7 +104,8 @@ export function LinkInput({ onShare }: LinkInputProps) {
       {feedback === 'error' && (
         <p className="text-red-400 text-sm mt-3 flex items-center gap-2">
           <XCircle className="w-4 h-4" />
-          Invalid link. Supported: YouTube, Spotify, images (gif, jpg, png), PDF, WebM, Google Docs
+          Invalid link. Supported: YouTube, Spotify, images (gif, jpg, png),
+          PDF, WebM, Google Docs
         </p>
       )}
     </div>

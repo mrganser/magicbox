@@ -24,6 +24,7 @@ https://themagicbox.onrender.com/
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/) + [shadcn/ui](https://ui.shadcn.com/)
 - **Database**: [MongoDB Atlas](https://www.mongodb.com/atlas) with [Prisma](https://www.prisma.io/)
 - **Real-time**: [Socket.IO](https://socket.io/)
+- **Linting/Formatting**: [Biome](https://biomejs.dev/)
 - **Spam Protection**: [Google reCAPTCHA v3](https://developers.google.com/recaptcha/docs/v3)
 
 ## Getting Started

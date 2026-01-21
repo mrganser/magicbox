@@ -1,11 +1,11 @@
 'use client';
 
+import { Hash, Lock, Users } from 'lucide-react';
 import { useChannel } from '@/hooks/use-channel';
-import { MediaViewer } from './media-viewer';
+import type { SharedLink } from '@/types/link';
 import { LinkHistory } from './link-history';
 import { LinkInput } from './link-input';
-import type { SharedLink } from '@/types/link';
-import { Lock, Hash, Users } from 'lucide-react';
+import { MediaViewer } from './media-viewer';
 
 interface ChannelViewProps {
   channel: string;
@@ -41,7 +41,9 @@ export function ChannelView({
               <Hash className="w-5 h-5 text-teal-400" />
             </div>
             <div>
-              <h2 className="text-xl font-display font-semibold text-stone-100">{channel}</h2>
+              <h2 className="text-xl font-display font-semibold text-stone-100">
+                {channel}
+              </h2>
               <div className="flex items-center gap-2 text-xs text-stone-500">
                 {secret ? (
                   <>
@@ -62,7 +64,11 @@ export function ChannelView({
         {/* Media viewer */}
         <div className="flex-1 p-4">
           <div className="relative h-full rounded-2xl overflow-hidden glass border border-white/5">
-            <MediaViewer key={currentLink} link={currentLink} channel={channel} />
+            <MediaViewer
+              key={currentLink}
+              link={currentLink}
+              channel={channel}
+            />
           </div>
         </div>
 

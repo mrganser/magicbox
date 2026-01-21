@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import { DM_Serif_Display, Outfit } from 'next/font/google';
-import { SocketProvider } from '@/contexts/socket-context';
-import { Navbar } from '@/components/layout/navbar';
 import Script from 'next/script';
+import { Navbar } from '@/components/layout/navbar';
+import { SocketProvider } from '@/contexts/socket-context';
 import './globals.css';
 
 const outfit = Outfit({

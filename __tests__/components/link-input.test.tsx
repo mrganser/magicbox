@@ -1,5 +1,5 @@
-import { describe, it, expect, vi } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
+import { describe, expect, it, vi } from 'vitest';
 import { LinkInput } from '@/components/channel/link-input';
 
 describe('LinkInput', () => {
@@ -7,7 +7,7 @@ describe('LinkInput', () => {
     render(<LinkInput onShare={() => true} />);
 
     expect(
-      screen.getByPlaceholderText(/paste a link to share/i)
+      screen.getByPlaceholderText(/paste a link to share/i),
     ).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /share/i })).toBeInTheDocument();
   });
@@ -45,7 +45,7 @@ describe('LinkInput', () => {
     render(<LinkInput onShare={onShare} />);
 
     const input = screen.getByPlaceholderText(
-      /paste a link to share/i
+      /paste a link to share/i,
     ) as HTMLInputElement;
     fireEvent.change(input, {
       target: { value: 'https://youtube.com/watch?v=test' },

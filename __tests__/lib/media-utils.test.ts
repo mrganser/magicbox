@@ -1,15 +1,17 @@
-import { describe, it, expect } from 'vitest';
+import { describe, expect, it } from 'vitest';
 import {
+  convertToEmbedUrl,
   getMediaType,
   isValidMediaLink,
-  convertToEmbedUrl,
   isYouTubeEmbed,
 } from '@/lib/media-utils';
 
 describe('media-utils', () => {
   describe('getMediaType', () => {
     it('identifies YouTube watch URLs', () => {
-      const result = getMediaType('https://www.youtube.com/watch?v=dQw4w9WgXcQ');
+      const result = getMediaType(
+        'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+      );
       expect(result.type).toBe('youtube');
       expect(result.icon).toBe('Youtube');
       expect(result.useIframe).toBe(true);
@@ -61,7 +63,7 @@ describe('media-utils', () => {
 
     it('identifies Google Docs', () => {
       const result = getMediaType(
-        'https://docs.google.com/document/d/1234/edit'
+        'https://docs.google.com/document/d/1234/edit',
       );
       expect(result.type).toBe('docs');
     });
@@ -76,7 +78,7 @@ describe('media-utils', () => {
   describe('isValidMediaLink', () => {
     it('returns true for valid YouTube links', () => {
       expect(
-        isValidMediaLink('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
+        isValidMediaLink('https://www.youtube.com/watch?v=dQw4w9WgXcQ'),
       ).toBe(true);
     });
 
@@ -96,17 +98,17 @@ describe('media-utils', () => {
   describe('convertToEmbedUrl', () => {
     it('converts YouTube watch URLs to embed URLs', () => {
       const result = convertToEmbedUrl(
-        'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+        'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
       );
       expect(result).toBe(
-        'https://www.youtube.com/embed/dQw4w9WgXcQ?enablejsapi=1'
+        'https://www.youtube.com/embed/dQw4w9WgXcQ?enablejsapi=1',
       );
     });
 
     it('converts YouTube short URLs to embed URLs', () => {
       const result = convertToEmbedUrl('https://youtu.be/dQw4w9WgXcQ');
       expect(result).toBe(
-        'https://www.youtube.com/embed/dQw4w9WgXcQ?enablejsapi=1'
+        'https://www.youtube.com/embed/dQw4w9WgXcQ?enablejsapi=1',
       );
     });
 
@@ -123,14 +125,14 @@ describe('media-utils', () => {
 
   describe('isYouTubeEmbed', () => {
     it('returns true for YouTube embed URLs', () => {
-      expect(
-        isYouTubeEmbed('https://www.youtube.com/embed/dQw4w9WgXcQ')
-      ).toBe(true);
+      expect(isYouTubeEmbed('https://www.youtube.com/embed/dQw4w9WgXcQ')).toBe(
+        true,
+      );
     });
 
     it('returns false for YouTube watch URLs', () => {
       expect(
-        isYouTubeEmbed('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
+        isYouTubeEmbed('https://www.youtube.com/watch?v=dQw4w9WgXcQ'),
       ).toBe(false);
     });
 

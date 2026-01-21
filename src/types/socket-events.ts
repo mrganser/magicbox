@@ -3,7 +3,7 @@ export interface ServerToClientEvents {
     channel: string,
     secret: boolean,
     link: string,
-    date: Date
+    date: Date,
   ) => void;
   linkchanged: (channel: string, secret: boolean, link: string) => void;
   playvideo: (channel: string, time: number) => void;
