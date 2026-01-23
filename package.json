@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "tsx watch server.ts",
-    "build": "next build && tsc server.ts --outDir dist --esModuleInterop --skipLibCheck",
+    "build": "next build && tsc -p tsconfig.server.json",
     "start": "NODE_ENV=production node dist/server.js",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
