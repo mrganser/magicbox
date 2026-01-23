@@ -19,9 +19,6 @@ const dmSerif = DM_Serif_Display({
 export const metadata: Metadata = {
   title: 'Magic Box',
   description: 'Real-time media sharing with your friends',
-  icons: {
-    icon: '/favicon.ico',
-  },
 };
 
 export default function RootLayout({
