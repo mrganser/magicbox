@@ -1,4 +1,4 @@
-import type { SharedLink } from '@prisma/client';
+import type { SharedLink } from '@/types/link';
 import { ChannelView } from '@/components/channel/channel-view';
 import { prisma } from '@/lib/prisma';
 
